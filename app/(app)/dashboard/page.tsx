@@ -1,5 +1,6 @@
 import { StatCard } from "@/components/ui/StatCard";
 import { TopBar } from "@/components/layout/TopBar";
+import { LiveOccupancyBadge } from "@/components/dashboard/LiveOccupancyBadge";
 import { apiFetch } from "@/lib/api";
 import type { DashboardSummary } from "@/lib/types/dashboard";
 
@@ -35,13 +36,16 @@ export default async function DashboardPage() {
             Key Metrics
           </h2>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-            <StatCard
-              label="Occupancy"
-              value={summary ? `${summary.occupancy_pct.toFixed(1)}%` : "—"}
-              sub={summary ? `${summary.occupied_rooms} / ${summary.total_rooms} rooms` : "Connect API to view"}
-              icon="🏨"
-              accent="blue"
-            />
+            <div>
+              <StatCard
+                label="Occupancy"
+                value={summary ? `${summary.occupancy_pct.toFixed(1)}%` : "—"}
+                sub={summary ? `${summary.occupied_rooms} / ${summary.total_rooms} rooms` : "Connect API to view"}
+                icon="🏨"
+                accent="blue"
+              />
+              <LiveOccupancyBadge initialOccupancyPct={summary?.occupancy_pct ?? null} />
+            </div>
             <StatCard
               label="Revenue Today"
               value={summary ? `$${Number(summary.revenue_today).toLocaleString()}` : "—"}
