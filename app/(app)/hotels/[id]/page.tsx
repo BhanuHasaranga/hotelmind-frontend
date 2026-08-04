@@ -1,20 +1,21 @@
 import { TopBar } from "@/components/layout/TopBar";
 import { Badge } from "@/components/ui/Badge";
-import { apiFetch } from "@/lib/api";
+import { apiFetchAuthed } from "@/lib/api";
+import { getSession } from "@/lib/auth/session";
 import type { Hotel } from "@/lib/types/hotel";
 import type { Room } from "@/lib/types/hotel";
 
-async function getHotel(id: string): Promise<Hotel | null> {
+async function getHotel(id: string, token: string): Promise<Hotel | null> {
   try {
-    return await apiFetch<Hotel>(`/api/v1/hotels/${id}`);
+    return await apiFetchAuthed<Hotel>(`/api/v1/hotels/${id}`, token);
   } catch {
     return null;
   }
 }
 
-async function getRooms(branchId: string): Promise<Room[]> {
+async function getRooms(branchId: string, token: string): Promise<Room[]> {
   try {
-    return await apiFetch<Room[]>(`/api/v1/hotels/branches/${branchId}/rooms`);
+    return await apiFetchAuthed<Room[]>(`/api/v1/hotels/branches/${branchId}/rooms`, token);
   } catch {
     return [];
   }
@@ -29,7 +30,17 @@ const STATUS_COLOR: Record<string, string> = {
 
 export default async function HotelDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const hotel = await getHotel(id);
+  const session = await getSession();
+
+  if (!session) {
+    return (
+      <>
+        <TopBar title="Not signed in" />
+      </>
+    );
+  }
+
+  const hotel = await getHotel(id, session.token);
 
   if (!hotel) {
     return (
@@ -41,7 +52,7 @@ export default async function HotelDetailPage({ params }: { params: Promise<{ id
   }
 
   const mainBranch = hotel.branches.find((b) => b.is_main_branch) ?? hotel.branches[0];
-  const rooms = mainBranch ? await getRooms(mainBranch.id) : [];
+  const rooms = mainBranch ? await getRooms(mainBranch.id, session.token) : [];
 
   return (
     <>

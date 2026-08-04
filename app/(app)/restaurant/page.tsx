@@ -1,12 +1,13 @@
 import { TopBar } from "@/components/layout/TopBar";
 import { Badge } from "@/components/ui/Badge";
 import { DataTable } from "@/components/ui/DataTable";
-import { apiFetch } from "@/lib/api";
+import { apiFetchAuthed } from "@/lib/api";
+import { getSession } from "@/lib/auth/session";
 import type { Order } from "@/lib/types/restaurant";
 
-async function getOrders(): Promise<Order[]> {
+async function getOrders(token: string): Promise<Order[]> {
   try {
-    return await apiFetch<Order[]>("/api/v1/restaurant/orders");
+    return await apiFetchAuthed<Order[]>("/api/v1/restaurant/orders", token);
   } catch {
     return [];
   }
@@ -39,7 +40,8 @@ const COLUMNS = [
 ];
 
 export default async function RestaurantPage() {
-  const orders = await getOrders();
+  const session = await getSession();
+  const orders = session ? await getOrders(session.token) : [];
 
   return (
     <>

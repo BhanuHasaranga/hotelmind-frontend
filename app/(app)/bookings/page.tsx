@@ -1,12 +1,13 @@
 import { TopBar } from "@/components/layout/TopBar";
 import { Badge } from "@/components/ui/Badge";
 import { DataTable } from "@/components/ui/DataTable";
-import { apiFetch } from "@/lib/api";
+import { apiFetchAuthed } from "@/lib/api";
+import { getSession } from "@/lib/auth/session";
 import type { Reservation } from "@/lib/types/booking";
 
-async function getReservations(): Promise<Reservation[]> {
+async function getReservations(token: string): Promise<Reservation[]> {
   try {
-    return await apiFetch<Reservation[]>("/api/v1/bookings/reservations");
+    return await apiFetchAuthed<Reservation[]>("/api/v1/bookings/reservations", token);
   } catch {
     return [];
   }
@@ -37,7 +38,8 @@ const COLUMNS = [
 ];
 
 export default async function BookingsPage() {
-  const reservations = await getReservations();
+  const session = await getSession();
+  const reservations = session ? await getReservations(session.token) : [];
 
   const counts = {
     total:      reservations.length,

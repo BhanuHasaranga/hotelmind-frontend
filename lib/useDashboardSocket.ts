@@ -11,18 +11,20 @@ export interface DashboardUpdate {
   [key: string]: unknown;
 }
 
-export function useDashboardSocket() {
+export function useDashboardSocket(token: string | undefined) {
   const [lastUpdate, setLastUpdate] = useState<DashboardUpdate | null>(null);
   const [connected, setConnected] = useState(false);
   const socketRef = useRef<WebSocket | null>(null);
 
   useEffect(() => {
+    if (!token) return;
+
     let cancelled = false;
     let reconnectTimer: ReturnType<typeof setTimeout> | undefined;
 
     function connect() {
       if (cancelled) return;
-      const socket = new WebSocket(`${WS_BASE_URL}/ws/dashboard`);
+      const socket = new WebSocket(`${WS_BASE_URL}/ws/dashboard?token=${encodeURIComponent(token as string)}`);
       socketRef.current = socket;
 
       socket.onopen = () => setConnected(true);
@@ -47,7 +49,7 @@ export function useDashboardSocket() {
       if (reconnectTimer) clearTimeout(reconnectTimer);
       socketRef.current?.close();
     };
-  }, []);
+  }, [token]);
 
   return { lastUpdate, connected };
 }

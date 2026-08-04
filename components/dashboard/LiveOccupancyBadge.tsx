@@ -4,10 +4,11 @@ import { useDashboardSocket } from "@/lib/useDashboardSocket";
 
 interface LiveOccupancyBadgeProps {
   initialOccupancyPct: number | null;
+  token?: string;
 }
 
-export function LiveOccupancyBadge({ initialOccupancyPct }: LiveOccupancyBadgeProps) {
-  const { lastUpdate, connected } = useDashboardSocket();
+export function LiveOccupancyBadge({ initialOccupancyPct, token }: LiveOccupancyBadgeProps) {
+  const { lastUpdate, connected } = useDashboardSocket(token);
 
   const liveOccupancyPct =
     lastUpdate?.type === "occupancy_changed" && typeof lastUpdate.occupancy_pct === "number"

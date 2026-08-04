@@ -1,18 +1,19 @@
 import { TopBar } from "@/components/layout/TopBar";
 import { Badge } from "@/components/ui/Badge";
 import { DataTable } from "@/components/ui/DataTable";
-import { apiFetch } from "@/lib/api";
+import { apiFetchAuthed } from "@/lib/api";
+import { getSession } from "@/lib/auth/session";
 import type { Hotel, Room } from "@/lib/types/hotel";
 
-async function getAllRooms(): Promise<(Room & { hotelName: string; branchName: string })[]> {
+async function getAllRooms(token: string): Promise<(Room & { hotelName: string; branchName: string })[]> {
   try {
-    const hotels = await apiFetch<Hotel[]>("/api/v1/hotels/");
+    const hotels = await apiFetchAuthed<Hotel[]>("/api/v1/hotels/", token);
     const rows: (Room & { hotelName: string; branchName: string })[] = [];
     await Promise.all(
       hotels.flatMap((hotel) =>
         hotel.branches.map(async (branch) => {
           try {
-            const rooms = await apiFetch<Room[]>(`/api/v1/hotels/branches/${branch.id}/rooms`);
+            const rooms = await apiFetchAuthed<Room[]>(`/api/v1/hotels/branches/${branch.id}/rooms`, token);
             rooms.forEach((r) => rows.push({ ...r, hotelName: hotel.name, branchName: branch.name }));
           } catch {}
         })
@@ -48,7 +49,8 @@ const COLUMNS = [
 ];
 
 export default async function RoomsPage() {
-  const rooms = await getAllRooms();
+  const session = await getSession();
+  const rooms = session ? await getAllRooms(session.token) : [];
 
   const byStatus = {
     AVAILABLE:   rooms.filter((r) => r.status === "AVAILABLE").length,

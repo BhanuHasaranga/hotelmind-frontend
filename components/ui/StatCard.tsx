@@ -1,8 +1,10 @@
+import { Icon, type IconName } from "./Icon";
+
 interface StatCardProps {
   label: string;
   value: string | number;
   sub?: string;
-  icon?: string;
+  icon?: IconName;
   accent?: "blue" | "green" | "amber" | "purple";
 }
 
@@ -19,7 +21,9 @@ export function StatCard({ label, value, sub, icon, accent = "blue" }: StatCardP
       <div className="flex items-start justify-between">
         <p className="text-sm font-medium text-gray-500">{label}</p>
         {icon && (
-          <span className={`rounded-lg p-2 text-lg ${ACCENT_MAP[accent]}`}>{icon}</span>
+          <span className={`rounded-lg p-2 ${ACCENT_MAP[accent]}`}>
+            <Icon name={icon} size={18} />
+          </span>
         )}
       </div>
       <p className="mt-2 text-3xl font-bold text-[var(--foreground)]">{value}</p>

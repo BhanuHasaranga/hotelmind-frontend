@@ -9,8 +9,10 @@
   /* Brand palette */
   --color-brand-950: #0c1a2e;
   --color-brand-900: #1e3a5f;
+  --color-brand-800: #24467a;
   --color-brand-700: #1d4ed8;
   --color-brand-500: #3b82f6;
+  --color-brand-300: #93c5fd;
   --color-brand-100: #dbeafe;
   --color-brand-50:  #eff6ff;
 
@@ -18,6 +20,7 @@
   --color-success: #16a34a;
   --color-warning: #d97706;
   --color-danger:  #dc2626;
+  --color-info:    #0284c7;
 }
 
 :root {
@@ -28,6 +31,18 @@
   --sidebar-active: #1d4ed8;
   --card-bg: #ffffff;
   --border: #e2e8f0;
+
+  --overlay-bg: rgb(15 23 42 / 0.5);
+  --focus-ring: #3b82f6;
+
+  --color-success-bg: #f0fdf4;
+  --color-success-fg: #15803d;
+  --color-warning-bg: #fffbeb;
+  --color-warning-fg: #b45309;
+  --color-danger-bg:  #fef2f2;
+  --color-danger-fg:  #b91c1c;
+  --color-info-bg:    #f0f9ff;
+  --color-info-fg:    #0369a1;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -37,6 +52,18 @@
     --sidebar-bg: #0c1a2e;
     --card-bg: #1e293b;
     --border: #334155;
+
+    --overlay-bg: rgb(0 0 0 / 0.6);
+    --focus-ring: #60a5fa;
+
+    --color-success-bg: #052e16;
+    --color-success-fg: #4ade80;
+    --color-warning-bg: #451a03;
+    --color-warning-fg: #fbbf24;
+    --color-danger-bg:  #450a0a;
+    --color-danger-fg:  #f87171;
+    --color-info-bg:    #082f49;
+    --color-info-fg:    #38bdf8;
   }
 }
 

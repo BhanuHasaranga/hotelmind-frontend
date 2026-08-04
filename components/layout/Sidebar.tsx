@@ -2,24 +2,35 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Icon, type IconName } from "@/components/ui/Icon";
 
 const NAV_ITEMS = [
-  { href: "/dashboard",  label: "Dashboard",  icon: "📊" },
-  { href: "/hotels",     label: "Hotels",     icon: "🏨" },
-  { href: "/rooms",      label: "Rooms",      icon: "🛏️" },
-  { href: "/bookings",   label: "Bookings",   icon: "📋" },
-  { href: "/restaurant", label: "Restaurant", icon: "🍽️" },
-  { href: "/staff",      label: "Staff",      icon: "👥" },
+  { href: "/dashboard",  label: "Dashboard",  icon: "dashboard" as IconName, roles: null },
+  { href: "/pricing",    label: "Pricing Intelligence", icon: "pricing" as IconName, roles: ["OWNER", "REVENUE_MANAGER"] },
+  { href: "/assistant",  label: "AI Assistant", icon: "assistant" as IconName, roles: null },
+  { href: "/guest-experience", label: "Guest Experience", icon: "guestExperience" as IconName, roles: ["OWNER", "GUEST_EXPERIENCE_MANAGER"] },
+  { href: "/staffing",   label: "Staffing", icon: "staffing" as IconName, roles: ["OWNER", "OPS_MANAGER"] },
+  { href: "/hotels",     label: "Hotels",     icon: "hotel" as IconName, roles: null },
+  { href: "/rooms",      label: "Rooms",      icon: "bed" as IconName, roles: null },
+  { href: "/bookings",   label: "Bookings",   icon: "bookings" as IconName, roles: null },
+  { href: "/restaurant", label: "Restaurant", icon: "restaurant" as IconName, roles: null },
+  { href: "/restaurant-demand", label: "Demand Forecast", icon: "demandForecast" as IconName, roles: ["OWNER", "RESTAURANT_MANAGER"] },
+  { href: "/staff",      label: "Staff",      icon: "staff" as IconName, roles: null },
 ] as const;
 
-export function Sidebar() {
+interface SidebarProps {
+  role?: string;
+}
+
+export function Sidebar({ role }: SidebarProps) {
   const pathname = usePathname();
+  const items = NAV_ITEMS.filter((item) => !item.roles || (role && (item.roles as readonly string[]).includes(role)));
 
   return (
     <aside className="flex h-screen w-60 flex-col bg-[var(--sidebar-bg)] text-[var(--sidebar-text)] shadow-xl">
       {/* Logo */}
       <div className="flex items-center gap-2 px-6 py-5 border-b border-white/10">
-        <span className="text-2xl">🏨</span>
+        <Icon name="brand" size={24} className="text-white" />
         <div>
           <p className="text-sm font-bold text-white leading-tight">HotelMind</p>
           <p className="text-xs text-blue-300 leading-tight">AI Platform</p>
@@ -28,7 +39,7 @@ export function Sidebar() {
 
       {/* Navigation */}
       <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-1">
-        {NAV_ITEMS.map(({ href, label, icon }) => {
+        {items.map(({ href, label, icon }) => {
           const isActive = pathname === href || pathname.startsWith(`${href}/`);
           return (
             <Link
@@ -41,7 +52,9 @@ export function Sidebar() {
                   : "text-[var(--sidebar-text)] hover:bg-white/10 hover:text-white",
               ].join(" ")}
             >
-              <span className="text-base w-5 text-center">{icon}</span>
+              <span className="flex w-5 items-center justify-center">
+                <Icon name={icon} size={18} />
+              </span>
               {label}
             </Link>
           );

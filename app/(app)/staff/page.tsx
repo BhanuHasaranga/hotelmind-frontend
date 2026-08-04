@@ -1,12 +1,13 @@
 import { TopBar } from "@/components/layout/TopBar";
 import { Badge } from "@/components/ui/Badge";
 import { DataTable } from "@/components/ui/DataTable";
-import { apiFetch } from "@/lib/api";
+import { apiFetchAuthed } from "@/lib/api";
+import { getSession } from "@/lib/auth/session";
 import type { Employee } from "@/lib/types/staff";
 
-async function getEmployees(): Promise<Employee[]> {
+async function getEmployees(token: string): Promise<Employee[]> {
   try {
-    return await apiFetch<Employee[]>("/api/v1/staff/employees");
+    return await apiFetchAuthed<Employee[]>("/api/v1/staff/employees", token);
   } catch {
     return [];
   }
@@ -36,7 +37,8 @@ const COLUMNS = [
 ];
 
 export default async function StaffPage() {
-  const employees = await getEmployees();
+  const session = await getSession();
+  const employees = session ? await getEmployees(session.token) : [];
 
   return (
     <>

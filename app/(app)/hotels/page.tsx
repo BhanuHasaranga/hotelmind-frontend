@@ -1,19 +1,21 @@
 import Link from "next/link";
 import { TopBar } from "@/components/layout/TopBar";
 import { Badge } from "@/components/ui/Badge";
-import { apiFetch } from "@/lib/api";
+import { apiFetchAuthed } from "@/lib/api";
+import { getSession } from "@/lib/auth/session";
 import type { Hotel } from "@/lib/types/hotel";
 
-async function getHotels(): Promise<Hotel[]> {
+async function getHotels(token: string): Promise<Hotel[]> {
   try {
-    return await apiFetch<Hotel[]>("/api/v1/hotels/");
+    return await apiFetchAuthed<Hotel[]>("/api/v1/hotels/", token);
   } catch {
     return [];
   }
 }
 
 export default async function HotelsPage() {
-  const hotels = await getHotels();
+  const session = await getSession();
+  const hotels = session ? await getHotels(session.token) : [];
 
   return (
     <>
