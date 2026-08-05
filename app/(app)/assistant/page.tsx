@@ -16,7 +16,10 @@ export default async function AssistantPage() {
 
   return (
     <>
-      <TopBar title="AI Assistant" subtitle="Ask questions about your hotel's data" />
+      <TopBar
+        title="AI Assistant"
+        subtitle="Ask questions about your hotel's data · Portfolio demo — LLM responses run on modest CPU-only infra and may be slow or unavailable"
+      />
       <div className="mt-6">
         <ChatWindow token={session.token} role={session.role} />
       </div>
