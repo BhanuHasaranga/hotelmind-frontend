@@ -12,15 +12,17 @@ interface GuardrailSheetProps {
   roomTypeId: string;
   existing: PricingGuardrail | null;
   onSave: (values: { minPrice: number; maxPrice: number; maxDailyChangePct: number }) => Promise<void>;
+  onReset: () => Promise<void>;
 }
 
-export function GuardrailSheet({ open, onClose, existing, onSave }: GuardrailSheetProps) {
+export function GuardrailSheet({ open, onClose, existing, onSave, onReset }: GuardrailSheetProps) {
   const [minPrice, setMinPrice] = useState(existing?.min_price?.toString() ?? "");
   const [maxPrice, setMaxPrice] = useState(existing?.max_price?.toString() ?? "");
   const [maxDailyChangePct, setMaxDailyChangePct] = useState(
     existing?.max_daily_change_pct?.toString() ?? "25",
   );
   const [pending, setPending] = useState(false);
+  const [resetting, setResetting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   async function handleSave() {
@@ -44,6 +46,20 @@ export function GuardrailSheet({ open, onClose, existing, onSave }: GuardrailShe
       onClose();
     } finally {
       setPending(false);
+    }
+  }
+
+  async function handleReset() {
+    setError(null);
+    setResetting(true);
+    try {
+      await onReset();
+      setMinPrice("");
+      setMaxPrice("");
+      setMaxDailyChangePct("25");
+      onClose();
+    } finally {
+      setResetting(false);
     }
   }
 
@@ -93,9 +109,20 @@ export function GuardrailSheet({ open, onClose, existing, onSave }: GuardrailShe
           </p>
         )}
 
-        <Button className="w-full" onClick={handleSave} disabled={pending}>
+        <Button className="w-full" onClick={handleSave} disabled={pending || resetting}>
           {pending ? "Saving…" : "Save guardrail"}
         </Button>
+
+        {existing && (
+          <Button
+            className="w-full"
+            variant="danger"
+            onClick={handleReset}
+            disabled={pending || resetting}
+          >
+            {resetting ? "Resetting…" : "Reset guardrail"}
+          </Button>
+        )}
       </div>
     </Sheet>
   );

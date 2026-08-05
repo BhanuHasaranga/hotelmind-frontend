@@ -13,6 +13,7 @@ import { OccupancyRevenueTrendChart } from "@/components/pricing/OccupancyRevenu
 import { RecommendationHistoryTable } from "@/components/pricing/RecommendationHistoryTable";
 import {
   actOnRecommendation,
+  deletePricingGuardrail,
   forecastOccupancy,
   listPricingGuardrails,
   listRecommendations,
@@ -138,6 +139,13 @@ export function PricingClient({
     toast({ title: "Guardrail saved", variant: "success" });
   }
 
+  async function handleResetGuardrail() {
+    if (!activeGuardrail) return;
+    await deletePricingGuardrail(token, activeGuardrail.id);
+    setGuardrails((prev) => prev.filter((g) => g.id !== activeGuardrail.id));
+    toast({ title: "Guardrail reset", variant: "success" });
+  }
+
   if (roomTypes.length === 0) {
     return (
       <EmptyState
@@ -216,6 +224,7 @@ export function PricingClient({
         roomTypeId={selectedRoomTypeId}
         existing={activeGuardrail}
         onSave={handleSaveGuardrail}
+        onReset={handleResetGuardrail}
       />
     </div>
   );

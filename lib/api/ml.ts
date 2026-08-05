@@ -153,6 +153,12 @@ export function upsertPricingGuardrail(token: string, body: PricingGuardrailInpu
   });
 }
 
+export function deletePricingGuardrail(token: string, guardrailId: string) {
+  return apiFetchAuthed<void>(`/api/v1/guardrails/pricing/${guardrailId}`, token, {
+    method: "DELETE",
+  });
+}
+
 export function listStaffingGuardrails(token: string, branchId: string) {
   return apiFetchAuthed<StaffingGuardrail[]>(
     `/api/v1/guardrails/staffing?branch_id=${branchId}`,
