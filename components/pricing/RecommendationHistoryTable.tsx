@@ -35,7 +35,8 @@ export function RecommendationHistoryTable({ recommendations }: RecommendationHi
         {
           key: "shown_at",
           header: "Date",
-          render: (r) => new Date(r.shown_at).toLocaleDateString(),
+          render: (r) =>
+            new Date(r.shown_at).toLocaleDateString("en-US", { timeZone: "UTC" }),
         },
         {
           key: "recommendedPrice",
