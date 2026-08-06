@@ -7,6 +7,7 @@ const STAFF = ["M. Alvarez", "T. Nakamura", "S. Osei", "J. Petrov", null];
 
 export function getHousekeepingSummary(branchId: string): HousekeepingSummary {
   const rand = seededRandom(dailySeedKey(branchId, "housekeeping"));
+  const anchor = new Date().setHours(0, 0, 0, 0);
   const taskCount = range(rand, 18, 36);
 
   const tasks: HousekeepingTask[] = Array.from({ length: taskCount }, (_, i) => {
@@ -20,7 +21,7 @@ export function getHousekeepingSummary(branchId: string): HousekeepingSummary {
       priority: pick(rand, PRIORITIES),
       assignedTo: status === "DIRTY" ? null : pick(rand, STAFF),
       estimatedMinutes: range(rand, 15, 55),
-      lastUpdated: new Date(Date.now() - range(rand, 0, 240) * 60_000).toISOString(),
+      lastUpdated: new Date(anchor - range(rand, 0, 240) * 60_000).toISOString(),
     };
   });
 

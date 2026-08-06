@@ -37,7 +37,22 @@ Because the backend is treated as a black box and several capabilities in this r
 - `lib/adapters/seed.ts` — a shared seeded PRNG (`seededRandom`) so mock data is stable per branch/day instead of jumping on every render.
 - `lib/adapters/<domain>/{types.ts,mock.ts,index.ts}` — one folder per domain. `index.ts` is the only thing pages import; it branches on the registry today and would call `apiFetchAuthed` once a real endpoint exists — **the page never needs to change.**
 
-`housekeeping` (`lib/adapters/housekeeping/`, route `/housekeeping`) is the reference implementation of this pattern — copy its structure for any new mocked domain.
+All mocked domains follow the same structure. Currently implemented:
+
+| Domain | Registry key | Route | Notes |
+|---|---|---|---|
+| Housekeeping | `housekeeping` | `/housekeeping` | Reference implementation — copy its structure for any new mocked domain |
+| Maintenance | `maintenance` | `/maintenance` | Ticketing with SLA tracking |
+| Front desk | `frontDesk` | `/check-in-out` | Arrivals/departures board |
+| Loyalty | `loyalty` | `/loyalty` | Cross-stay guest directory + tiers |
+| HR & Payroll | `hrPayroll` | `/hr` | Payroll rows + leave requests |
+| Portfolio rollup | `portfolioRollup` | `/portfolio` | Cross-property comparison, OWNER-only |
+| Admin console | `adminConsole` | `/admin` | Users, audit log, system health |
+| Dashboard extras | `dashboardWeather`/`dashboardEvents`/`dashboardAIInsights`/etc. | `/dashboard` (Preview section) | Weather, events, staff utilization, food waste, maintenance alerts, AI insights |
+
+`/reports` is different from the above: it is **not** a mock domain. It reassembles already-real data (`DashboardSummary` + `Reservation[]`) into a report view, so its `TopBar` carries `dataSource="real"`.
+
+Every mock generator uses `lib/adapters/seed.ts`'s `seededRandom` + `dailySeedKey`, anchored to `new Date().setHours(0,0,0,0)` (not raw `Date.now()`) wherever a relative timestamp is generated — this is what makes two calls to the same generator on the same day produce byte-identical output, verified by `lib/adapters/seed.test.ts`. When adding a new mock domain, always derive timestamps from a `const anchor = new Date().setHours(0,0,0,0)` computed once per call, never from `Date.now()` directly inside a per-row callback, or determinism breaks.
 
 Every mock-sourced screen/widget carries a `<DataSourceBadge source="mock" />` (or `"beta"` for real-endpoint features whose underlying model is trained on synthetic data — restaurant demand, staffing forecasts — per `docs/business_gap_analysis.md`). Mock-only nav items get a small violet dot in the sidebar. This is the core mechanism preventing the UI from overclaiming backend capability.
 
