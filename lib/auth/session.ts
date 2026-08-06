@@ -27,7 +27,7 @@ export async function getSession(): Promise<Session | null> {
 export async function requireSession(): Promise<Session> {
   const session = await getSession();
   if (!session) {
-    throw new Error("No active session — this should be unreachable behind proxy.ts's redirect");
+    throw new Error("No active session — this should be unreachable behind app/(app)/layout.tsx's redirect");
   }
   return session;
 }

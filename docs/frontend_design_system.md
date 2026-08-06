@@ -70,3 +70,14 @@ To promote a mocked domain to real once the backend ships it:
 ## 8. Accessibility
 
 Radix primitives (Dialog, Sheet, DropdownMenu, Tabs) provide focus trapping, `Escape`-to-close, and correct ARIA roles out of the box. All interactive elements use `focus-visible:ring-2 focus-visible:ring-ring` for a consistent, high-contrast focus indicator in both themes. Status/data-source information is never conveyed by color alone — `Badge` and `DataSourceBadge` always pair color with a text label or icon.
+
+## 9. Auth gate: layout-level, not proxy.ts
+
+Next.js 16 renamed `middleware.ts` to `proxy.ts` and made it default to the Node.js runtime instead of Edge. As of this writing, `@netlify/plugin-nextjs` (v5.15.13, latest) still bundles `proxy.ts` as a Netlify **Edge Function** and fails to resolve the Node-runtime chunk output there (`Cannot find module './chunks/[turbopack]_runtime.js'` / `'./webpack-runtime.js'`), regardless of whether the build uses Turbopack or webpack — this broke every Netlify production deploy.
+
+Rather than work around the platform gap with build-command hacks, the auth gate was moved out of `proxy.ts` entirely (that file no longer exists) and into two server components that already run on every request in the normal Next.js request lifecycle:
+
+- `app/(app)/layout.tsx` — redirects to `/login` if `getSession()` returns null. Covers every route under the `(app)` route group.
+- `app/login/page.tsx` — a thin server wrapper that redirects to `/dashboard` if a session already exists, then renders the client `LoginForm` (moved to `app/login/LoginForm.tsx`).
+
+This produces the same UX (unauthenticated users can't reach app pages, authenticated users skip the login form) without any Edge Function artifact for Netlify to bundle. If a future `@netlify/plugin-nextjs` release fixes Node-runtime proxy support, this can be reverted to a single `proxy.ts` gate if desired — it is not required, since the layout-level check is a fully supported Next.js pattern on its own.
