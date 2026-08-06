@@ -42,3 +42,6 @@ next-env.d.ts
 
 # Local Netlify folder
 .netlify
+
+# Deno (not used by this project; stray lockfile from editor tooling)
+deno.lock
