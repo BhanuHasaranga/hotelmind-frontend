@@ -18,7 +18,7 @@ export default async function AssistantPage() {
     <>
       <TopBar
         title="AI Assistant"
-        subtitle="Ask questions about your hotel's data · Portfolio demo — LLM responses run on modest CPU-only infra and may be slow or unavailable"
+        subtitle="Ask questions about your hotel's data · Portfolio demo — retrieval over real data works live; conversational LLM answers are disabled here to keep hosting costs down, but run locally"
       />
       <div className="mt-6">
         <ChatWindow token={session.token} role={session.role} />
