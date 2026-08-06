@@ -81,3 +81,7 @@ Rather than work around the platform gap with build-command hacks, the auth gate
 - `app/login/page.tsx` — a thin server wrapper that redirects to `/dashboard` if a session already exists, then renders the client `LoginForm` (moved to `app/login/LoginForm.tsx`).
 
 This produces the same UX (unauthenticated users can't reach app pages, authenticated users skip the login form) without any Edge Function artifact for Netlify to bundle. If a future `@netlify/plugin-nextjs` release fixes Node-runtime proxy support, this can be reverted to a single `proxy.ts` gate if desired — it is not required, since the layout-level check is a fully supported Next.js pattern on its own.
+
+## 10. Deployment
+
+Netlify's production branch is `master` (matches this repo's default branch). Pushing to `master` on GitHub triggers Netlify's own build (`npm run build` per `netlify.toml`) and auto-publishes to https://hotelmind.bhanuhasaranga.com — no manual `netlify deploy` step needed.
