@@ -165,7 +165,7 @@ export function PricingClient({
         <CardContent>
           <div className="flex flex-wrap items-end gap-3">
             <div>
-              <label className="mb-1 block text-xs font-medium text-gray-500">Room type</label>
+              <label className="mb-1 block text-xs font-medium text-muted-foreground">Room type</label>
               <Select
                 size="sm"
                 value={selectedRoomTypeId}

@@ -30,25 +30,25 @@ export function ScheduleCalendar({ rows }: ScheduleCalendarProps) {
   }
 
   return (
-    <div className="overflow-hidden rounded-xl border border-[var(--border)]">
-      <table className="min-w-full divide-y divide-[var(--border)]">
+    <div className="overflow-hidden rounded-xl border border-border">
+      <table className="min-w-full divide-y divide-border">
         <thead>
           <tr className="bg-gray-50 dark:bg-gray-900/50">
-            <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
+            <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-muted-foreground">
               Department
             </th>
-            <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
+            <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-muted-foreground">
               Scheduled
             </th>
-            <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
+            <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-muted-foreground">
               Recommended
             </th>
-            <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
+            <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-muted-foreground">
               Coverage
             </th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-[var(--border)]">
+        <tbody className="divide-y divide-border">
           {rows.map((row) => {
             const ratio =
               row.requiredStaff && row.requiredStaff > 0
@@ -56,9 +56,9 @@ export function ScheduleCalendar({ rows }: ScheduleCalendarProps) {
                 : null;
             return (
               <tr key={row.departmentId}>
-                <td className="px-4 py-3 text-sm font-medium text-[var(--foreground)]">{row.departmentName}</td>
-                <td className="px-4 py-3 text-sm text-[var(--foreground)]">{row.scheduledEmployees}</td>
-                <td className="px-4 py-3 text-sm text-[var(--foreground)]">{row.requiredStaff ?? "—"}</td>
+                <td className="px-4 py-3 text-sm font-medium text-foreground">{row.departmentName}</td>
+                <td className="px-4 py-3 text-sm text-foreground">{row.scheduledEmployees}</td>
+                <td className="px-4 py-3 text-sm text-foreground">{row.requiredStaff ?? "—"}</td>
                 <td className="px-4 py-3">
                   {ratio !== null ? (
                     <div className="h-2 w-32 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-800">
@@ -68,7 +68,7 @@ export function ScheduleCalendar({ rows }: ScheduleCalendarProps) {
                       />
                     </div>
                   ) : (
-                    <span className="text-xs text-gray-400">Not requested</span>
+                    <span className="text-xs text-muted-foreground">Not requested</span>
                   )}
                 </td>
               </tr>

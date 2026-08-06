@@ -61,12 +61,12 @@ export default async function RoomsPage() {
 
   return (
     <>
-      <TopBar title="Rooms" subtitle="All rooms across properties" />
+      <TopBar title="Rooms" subtitle="All rooms across properties" dataSource="real" />
 
       <div className="mt-6 space-y-6">
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
           {Object.entries(byStatus).map(([status, count]) => (
-            <div key={status} className="rounded-xl border border-[var(--border)] bg-[var(--card-bg)] p-4 shadow-sm text-center">
+            <div key={status} className="rounded-xl border border-border bg-card p-4 shadow-sm text-center">
               <Badge label={status} />
               <p className="mt-2 text-2xl font-bold">{count}</p>
             </div>

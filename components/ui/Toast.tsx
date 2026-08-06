@@ -35,7 +35,7 @@ export function Toast({ toast, onDismiss }: ToastProps) {
     <div
       role="status"
       className={clsx(
-        "flex w-80 items-start gap-3 rounded-lg border border-[var(--border)] p-4 shadow-lg",
+        "flex w-80 items-start gap-3 rounded-lg border border-border p-4 shadow-lg",
         VARIANT_CLASSES[variant]
       )}
     >
@@ -48,7 +48,7 @@ export function Toast({ toast, onDismiss }: ToastProps) {
         type="button"
         aria-label="Dismiss"
         onClick={() => onDismiss(toast.id)}
-        className="shrink-0 rounded-md p-0.5 hover:bg-black/10 focus:outline-none focus:ring-2 focus:ring-[var(--focus-ring)]"
+        className="shrink-0 rounded-md p-0.5 hover:bg-black/10 outline-none focus-visible:ring-2 focus-visible:ring-ring"
       >
         <Icon name="close" size={14} />
       </button>

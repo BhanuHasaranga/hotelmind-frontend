@@ -50,7 +50,7 @@ export default async function BookingsPage() {
 
   return (
     <>
-      <TopBar title="Bookings" subtitle="Reservations management" />
+      <TopBar title="Bookings" subtitle="Reservations management" dataSource="real" />
 
       <div className="mt-6 space-y-6">
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
@@ -60,8 +60,8 @@ export default async function BookingsPage() {
             { label: "Confirmed",  value: counts.confirmed, color: "text-green-600" },
             { label: "Checked In", value: counts.checkedIn, color: "text-purple-600" },
           ].map(({ label, value, color }) => (
-            <div key={label} className="rounded-xl border border-[var(--border)] bg-[var(--card-bg)] p-4 shadow-sm">
-              <p className="text-xs text-gray-400">{label}</p>
+            <div key={label} className="rounded-xl border border-border bg-card p-4 shadow-sm">
+              <p className="text-xs text-muted-foreground">{label}</p>
               <p className={`text-2xl font-bold ${color}`}>{value}</p>
             </div>
           ))}

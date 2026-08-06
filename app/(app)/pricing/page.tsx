@@ -39,8 +39,8 @@ export default async function PricingPage() {
   if (!active?.branchId) {
     return (
       <>
-        <TopBar title="Pricing Intelligence" subtitle="AI-recommended room pricing" />
-        <p className="mt-6 text-sm text-gray-400">
+        <TopBar title="Pricing Intelligence" subtitle="AI-recommended room pricing" dataSource="real" />
+        <p className="mt-6 text-sm text-muted-foreground">
           Select a branch from the switcher above to view pricing recommendations.
         </p>
       </>
@@ -58,7 +58,7 @@ export default async function PricingPage() {
 
   return (
     <>
-      <TopBar title="Pricing Intelligence" subtitle="AI-recommended room pricing" />
+      <TopBar title="Pricing Intelligence" subtitle="AI-recommended room pricing" dataSource="real" />
       <div className="mt-6">
         <PricingClient
           token={session.token}

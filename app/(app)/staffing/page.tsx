@@ -27,7 +27,7 @@ export default async function StaffingPage() {
     return (
       <>
         <TopBar title="Staffing" subtitle="AI-recommended headcount" />
-        <p className="mt-6 text-sm text-gray-400">
+        <p className="mt-6 text-sm text-muted-foreground">
           Select a branch from the switcher above to view staffing recommendations.
         </p>
       </>
@@ -42,7 +42,7 @@ export default async function StaffingPage() {
 
   return (
     <>
-      <TopBar title="Staffing" subtitle="AI-recommended headcount by department" />
+      <TopBar title="Staffing" subtitle="AI-recommended headcount by department" dataSource="beta" />
       <div className="mt-6">
         <StaffingClient
           token={session.token}

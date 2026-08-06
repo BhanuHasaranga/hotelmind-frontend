@@ -49,7 +49,7 @@ export function PriceRecommendationCard({
       </CardHeader>
       <CardContent>
         <div className="flex items-baseline gap-3">
-          <p className="text-3xl font-bold text-[var(--foreground)]">
+          <p className="text-3xl font-bold text-foreground">
             ${recommendation.recommended_price.toFixed(2)}
           </p>
           <span
@@ -63,13 +63,13 @@ export function PriceRecommendationCard({
             {deltaPct.toFixed(1)}%
           </span>
         </div>
-        <p className="mt-1 text-xs text-gray-500">
+        <p className="mt-1 text-xs text-muted-foreground">
           Current price: ${currentPrice.toFixed(2)} · Expected revenue: $
           {recommendation.expected_revenue.toLocaleString(undefined, { maximumFractionDigits: 0 })}
         </p>
 
         {recommendation.meta && (
-          <p className="mt-3 flex items-center gap-1.5 text-xs text-gray-400">
+          <p className="mt-3 flex items-center gap-1.5 text-xs text-muted-foreground">
             <Icon name="insight" size={12} />
             Model v{recommendation.meta.model_version}
             {recommendation.meta.confidence != null &&

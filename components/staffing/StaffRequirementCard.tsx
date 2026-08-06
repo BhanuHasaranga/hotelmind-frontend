@@ -53,15 +53,15 @@ export function StaffRequirementCard({
       <CardContent>
         <div className="flex items-baseline gap-4">
           <div>
-            <p className="text-2xl font-bold text-[var(--foreground)]">{requirement.required_staff}</p>
-            <p className="text-xs text-gray-500">Recommended</p>
+            <p className="text-2xl font-bold text-foreground">{requirement.required_staff}</p>
+            <p className="text-xs text-muted-foreground">Recommended</p>
           </div>
           <div>
-            <p className="text-2xl font-bold text-gray-400">{scheduledEmployees}</p>
-            <p className="text-xs text-gray-500">Scheduled</p>
+            <p className="text-2xl font-bold text-muted-foreground">{scheduledEmployees}</p>
+            <p className="text-xs text-muted-foreground">Scheduled</p>
           </div>
         </div>
-        <p className="mt-3 text-xs text-gray-500">{requirement.confidence_note}</p>
+        <p className="mt-3 text-xs text-muted-foreground">{requirement.confidence_note}</p>
       </CardContent>
       <CardFooter>
         <Button variant="ghost" size="sm" onClick={onDismiss} disabled={pending}>

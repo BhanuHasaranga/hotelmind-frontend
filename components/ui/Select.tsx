@@ -1,8 +1,8 @@
 "use client";
 
 import { SelectHTMLAttributes, ReactNode } from "react";
-import clsx from "clsx";
-import { Icon } from "./Icon";
+import { ChevronDown } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export interface SelectOption {
   value: string;
@@ -17,14 +17,14 @@ interface SelectProps extends Omit<SelectHTMLAttributes<HTMLSelectElement>, "siz
 }
 
 export function Select({ options, children, size = "md", className, ...props }: SelectProps) {
-  const sizeClass = size === "sm" ? "py-1.5 pl-3 pr-8 text-sm" : "py-2 pl-3 pr-9 text-sm";
+  const sizeClass = size === "sm" ? "h-8 pl-3 pr-8 text-sm" : "h-9 pl-3 pr-9 text-sm";
   return (
-    <div className={clsx("relative inline-block", className)}>
+    <div className={cn("relative inline-block", className)}>
       <select
-        className={clsx(
-          "w-full appearance-none rounded-lg border border-[var(--border)] bg-[var(--card-bg)] text-[var(--foreground)]",
-          "focus:outline-none focus:ring-2 focus:ring-[var(--focus-ring)] disabled:opacity-50 disabled:cursor-not-allowed",
-          sizeClass
+        className={cn(
+          "w-full appearance-none rounded-md border border-input bg-card text-foreground shadow-xs",
+          "outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-50 disabled:cursor-not-allowed",
+          sizeClass,
         )}
         {...props}
       >
@@ -36,10 +36,9 @@ export function Select({ options, children, size = "md", className, ...props }: 
             ))
           : children}
       </select>
-      <Icon
-        name="chevronDown"
+      <ChevronDown
         size={16}
-        className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400"
+        className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground"
       />
     </div>
   );

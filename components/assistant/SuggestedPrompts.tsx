@@ -45,7 +45,7 @@ export function SuggestedPrompts({ role, onSelect }: SuggestedPromptsProps) {
         <button
           key={prompt}
           onClick={() => onSelect(prompt)}
-          className="rounded-full border border-[var(--border)] bg-[var(--card-bg)] px-3 py-1.5 text-xs text-[var(--foreground)] transition-colors hover:border-[var(--sidebar-active)] hover:text-[var(--sidebar-active)]"
+          className="rounded-full border border-border bg-card px-3 py-1.5 text-xs text-foreground transition-colors hover:border-[var(--sidebar-active)] hover:text-primary"
         >
           {prompt}
         </button>

@@ -101,12 +101,12 @@ export function StaffingClient({ token, branchId, departments, employees }: Staf
                 <CardTitle>{dept.name}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-2xl font-bold text-[var(--foreground)]">{scheduled}</p>
-                <p className="mb-3 text-xs text-gray-500">Currently scheduled</p>
+                <p className="text-2xl font-bold text-foreground">{scheduled}</p>
+                <p className="mb-3 text-xs text-muted-foreground">Currently scheduled</p>
                 <button
                   onClick={() => handleRequest(dept, scheduled)}
                   disabled={loadingDept === dept.id}
-                  className="text-sm font-medium text-[var(--sidebar-active)] hover:underline disabled:opacity-50"
+                  className="text-sm font-medium text-primary hover:underline disabled:opacity-50"
                 >
                   {loadingDept === dept.id ? "Requesting…" : "Get recommendation"}
                 </button>

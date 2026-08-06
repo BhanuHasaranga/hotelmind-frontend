@@ -71,14 +71,14 @@ export function ComplaintsFeed({ token, complaints }: ComplaintsFeedProps) {
 
         return (
           <div key={i} className="space-y-2">
-            <div className="rounded-xl border border-[var(--border)] bg-[var(--card-bg)] p-4 shadow-sm">
+            <div className="rounded-xl border border-border bg-card p-4 shadow-sm">
               <div className="flex items-start justify-between gap-3">
                 <div className="flex items-start gap-2">
                   <Icon name="complaint" size={16} className="mt-0.5 shrink-0 text-[var(--color-warning-fg)]" />
                   <div>
-                    <p className="text-sm text-[var(--foreground)]">{complaintText(complaint)}</p>
+                    <p className="text-sm text-foreground">{complaintText(complaint)}</p>
                     {complaintDate(complaint) && (
-                      <p className="mt-1 text-xs text-gray-400">{complaintDate(complaint)}</p>
+                      <p className="mt-1 text-xs text-muted-foreground">{complaintDate(complaint)}</p>
                     )}
                   </div>
                 </div>

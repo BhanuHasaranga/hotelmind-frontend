@@ -1,3 +1,5 @@
+import { cn } from "@/lib/utils";
+
 interface Column<T> {
   key: string;
   header: string;
@@ -9,6 +11,8 @@ interface DataTableProps<T> {
   data: T[];
   keyExtractor: (row: T) => string;
   emptyMessage?: string;
+  onRowClick?: (row: T) => void;
+  className?: string;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -17,34 +21,43 @@ export function DataTable<T extends Record<string, any>>({
   data,
   keyExtractor,
   emptyMessage = "No records found",
+  onRowClick,
+  className,
 }: DataTableProps<T>) {
   return (
-    <div className="overflow-x-auto rounded-xl border border-[var(--border)] bg-[var(--card-bg)] shadow-sm">
-      <table className="min-w-full divide-y divide-[var(--border)]">
+    <div className={cn("overflow-x-auto rounded-xl border border-border bg-card shadow-xs", className)}>
+      <table className="min-w-full divide-y divide-border">
         <thead>
-          <tr className="bg-gray-50 dark:bg-gray-900/50">
+          <tr className="bg-secondary/60">
             {columns.map((col) => (
               <th
                 key={col.key}
-                className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500"
+                className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-muted-foreground"
               >
                 {col.header}
               </th>
             ))}
           </tr>
         </thead>
-        <tbody className="divide-y divide-[var(--border)]">
+        <tbody className="divide-y divide-border">
           {data.length === 0 ? (
             <tr>
-              <td colSpan={columns.length} className="py-10 text-center text-sm text-gray-400">
+              <td colSpan={columns.length} className="py-10 text-center text-sm text-muted-foreground">
                 {emptyMessage}
               </td>
             </tr>
           ) : (
             data.map((row) => (
-              <tr key={keyExtractor(row)} className="hover:bg-gray-50/50 dark:hover:bg-gray-800/30 transition-colors">
+              <tr
+                key={keyExtractor(row)}
+                onClick={onRowClick ? () => onRowClick(row) : undefined}
+                className={cn(
+                  "transition-colors hover:bg-secondary/40",
+                  onRowClick && "cursor-pointer",
+                )}
+              >
                 {columns.map((col) => (
-                  <td key={col.key} className="px-4 py-3 text-sm text-[var(--foreground)]">
+                  <td key={col.key} className="px-4 py-3 text-sm text-foreground">
                     {col.render ? col.render(row) : String(row[col.key] ?? "")}
                   </td>
                 ))}

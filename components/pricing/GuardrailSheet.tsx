@@ -65,41 +65,41 @@ export function GuardrailSheet({ open, onClose, existing, onSave, onReset }: Gua
 
   return (
     <Sheet open={open} onClose={onClose} title="Pricing Guardrails">
-      <p className="mb-4 text-sm text-gray-500">
+      <p className="mb-4 text-sm text-muted-foreground">
         AI price recommendations are clamped to this range before they can be applied — this
         protects against a model suggestion violating a franchise agreement or ownership rule.
       </p>
 
       <div className="space-y-4">
         <div>
-          <label className="mb-1 block text-sm font-medium text-[var(--foreground)]">Minimum price</label>
+          <label className="mb-1 block text-sm font-medium text-foreground">Minimum price</label>
           <input
             type="number"
             value={minPrice}
             onChange={(e) => setMinPrice(e.target.value)}
-            className="w-full rounded-lg border border-[var(--border)] bg-transparent px-3 py-2 text-sm text-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--focus-ring)]"
+            className="w-full rounded-lg border border-border bg-transparent px-3 py-2 text-sm text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
             placeholder="e.g. 80"
           />
         </div>
         <div>
-          <label className="mb-1 block text-sm font-medium text-[var(--foreground)]">Maximum price</label>
+          <label className="mb-1 block text-sm font-medium text-foreground">Maximum price</label>
           <input
             type="number"
             value={maxPrice}
             onChange={(e) => setMaxPrice(e.target.value)}
-            className="w-full rounded-lg border border-[var(--border)] bg-transparent px-3 py-2 text-sm text-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--focus-ring)]"
+            className="w-full rounded-lg border border-border bg-transparent px-3 py-2 text-sm text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
             placeholder="e.g. 400"
           />
         </div>
         <div>
-          <label className="mb-1 block text-sm font-medium text-[var(--foreground)]">
+          <label className="mb-1 block text-sm font-medium text-foreground">
             Max daily change (%)
           </label>
           <input
             type="number"
             value={maxDailyChangePct}
             onChange={(e) => setMaxDailyChangePct(e.target.value)}
-            className="w-full rounded-lg border border-[var(--border)] bg-transparent px-3 py-2 text-sm text-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--focus-ring)]"
+            className="w-full rounded-lg border border-border bg-transparent px-3 py-2 text-sm text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
           />
         </div>
 

@@ -49,20 +49,20 @@ export default function LoginPage() {
     <div className="flex min-h-screen items-center justify-center bg-[var(--background)] px-4">
       <div className="w-full max-w-md">
         <div className="mb-8 flex flex-col items-center gap-2">
-          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[var(--sidebar-active)] text-white">
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-white">
             <Icon name="brand" size={26} />
           </div>
-          <h1 className="text-xl font-bold text-[var(--foreground)]">HotelMind AI</h1>
-          <p className="text-sm text-gray-500">Operations Intelligence Platform</p>
+          <h1 className="text-xl font-bold text-foreground">HotelMind AI</h1>
+          <p className="text-sm text-muted-foreground">Operations Intelligence Platform</p>
         </div>
 
         <form
           onSubmit={handleSubmit}
-          className="rounded-xl border border-[var(--border)] bg-[var(--card-bg)] p-6 shadow-sm"
+          className="rounded-xl border border-border bg-card p-6 shadow-sm"
         >
           <div className="space-y-4">
             <div>
-              <label htmlFor="email" className="mb-1 block text-sm font-medium text-[var(--foreground)]">
+              <label htmlFor="email" className="mb-1 block text-sm font-medium text-foreground">
                 Email
               </label>
               <input
@@ -71,12 +71,12 @@ export default function LoginPage() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full rounded-lg border border-[var(--border)] bg-transparent px-3 py-2 text-sm text-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--focus-ring)]"
+                className="w-full rounded-lg border border-border bg-transparent px-3 py-2 text-sm text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 placeholder="you@hotelmind.demo"
               />
             </div>
             <div>
-              <label htmlFor="password" className="mb-1 block text-sm font-medium text-[var(--foreground)]">
+              <label htmlFor="password" className="mb-1 block text-sm font-medium text-foreground">
                 Password
               </label>
               <input
@@ -85,7 +85,7 @@ export default function LoginPage() {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full rounded-lg border border-[var(--border)] bg-transparent px-3 py-2 text-sm text-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--focus-ring)]"
+                className="w-full rounded-lg border border-border bg-transparent px-3 py-2 text-sm text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 placeholder="demo1234"
               />
             </div>
@@ -102,11 +102,11 @@ export default function LoginPage() {
           </div>
         </form>
 
-        <div className="mt-6 rounded-xl border border-[var(--border)] bg-[var(--card-bg)] p-4">
-          <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-500">
+        <div className="mt-6 rounded-xl border border-border bg-card p-4">
+          <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
             Demo accounts (password: demo1234)
           </p>
-          <ul className="space-y-1 text-xs text-gray-500">
+          <ul className="space-y-1 text-xs text-muted-foreground">
             {DEMO_ACCOUNTS.map((account) => (
               <li key={account.email} className="flex justify-between gap-2">
                 <span>{account.role}</span>
@@ -116,7 +116,7 @@ export default function LoginPage() {
                     setEmail(account.email);
                     setPassword("demo1234");
                   }}
-                  className="font-mono text-[var(--sidebar-active)] hover:underline"
+                  className="font-mono text-primary hover:underline"
                 >
                   {account.email}
                 </button>

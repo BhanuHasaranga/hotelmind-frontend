@@ -39,12 +39,12 @@ export function TopicsBreakdown({ topics }: TopicsBreakdownProps) {
       {rows.map((row) => (
         <div key={row.label}>
           <div className="mb-1 flex items-center justify-between text-xs">
-            <span className="font-medium text-[var(--foreground)]">{row.label}</span>
-            <span className="text-gray-400">{row.count}</span>
+            <span className="font-medium text-foreground">{row.label}</span>
+            <span className="text-muted-foreground">{row.count}</span>
           </div>
           <div className="h-2 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-800">
             <div
-              className="h-full rounded-full bg-[var(--sidebar-active)]"
+              className="h-full rounded-full bg-primary"
               style={{ width: `${(row.count / max) * 100}%` }}
             />
           </div>

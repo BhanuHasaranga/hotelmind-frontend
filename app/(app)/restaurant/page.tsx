@@ -45,7 +45,7 @@ export default async function RestaurantPage() {
 
   return (
     <>
-      <TopBar title="Restaurant" subtitle="Orders and table management" />
+      <TopBar title="Restaurant" subtitle="Orders and table management" dataSource="real" />
 
       <div className="mt-6 space-y-6">
         <div className="grid grid-cols-3 gap-3">
@@ -54,8 +54,8 @@ export default async function RestaurantPage() {
             { label: "Closed Today",  value: orders.filter((o) => o.status === "CLOSED").length, color: "text-green-600" },
             { label: "Total Revenue", value: `$${orders.filter((o) => o.status === "CLOSED").reduce((s, o) => s + Number(o.total_amount), 0).toLocaleString()}`, color: "text-purple-600" },
           ].map(({ label, value, color }) => (
-            <div key={label} className="rounded-xl border border-[var(--border)] bg-[var(--card-bg)] p-4 shadow-sm">
-              <p className="text-xs text-gray-400">{label}</p>
+            <div key={label} className="rounded-xl border border-border bg-card p-4 shadow-sm">
+              <p className="text-xs text-muted-foreground">{label}</p>
               <p className={`text-2xl font-bold ${color}`}>{value}</p>
             </div>
           ))}

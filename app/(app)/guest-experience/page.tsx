@@ -14,7 +14,7 @@ export default async function GuestExperiencePage() {
     return (
       <>
         <TopBar title="Guest Experience" />
-        <p className="mt-6 text-sm text-gray-400">Sign in to view guest experience insights.</p>
+        <p className="mt-6 text-sm text-muted-foreground">Sign in to view guest experience insights.</p>
       </>
     );
   }
@@ -28,14 +28,14 @@ export default async function GuestExperiencePage() {
 
   return (
     <>
-      <TopBar title="Guest Experience" subtitle="Sentiment, complaints and churn risk" />
+      <TopBar title="Guest Experience" subtitle="Sentiment, complaints and churn risk" dataSource="beta" />
 
       <div className="mt-6 space-y-6">
         <LiveAlertBanner token={session.token} />
 
         {summary && (
-          <div className="rounded-xl border border-[var(--border)] bg-[var(--card-bg)] p-5 shadow-sm">
-            <p className="text-sm text-[var(--foreground)]">{summary.summary}</p>
+          <div className="rounded-xl border border-border bg-card p-5 shadow-sm">
+            <p className="text-sm text-foreground">{summary.summary}</p>
           </div>
         )}
 

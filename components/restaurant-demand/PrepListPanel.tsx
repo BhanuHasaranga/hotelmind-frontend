@@ -78,9 +78,9 @@ export function PrepListPanel({ token, categories, menuItems, forecast }: PrepLi
         const perItemQty = Math.round(bucket.forecast.expected_quantity / bucket.items.length) || 1;
         return (
           <div key={bucket.label}>
-            <h3 className="mb-2 flex items-center justify-between text-sm font-semibold text-[var(--foreground)]">
+            <h3 className="mb-2 flex items-center justify-between text-sm font-semibold text-foreground">
               {bucket.label}
-              <span className="text-xs font-normal text-gray-500">
+              <span className="text-xs font-normal text-muted-foreground">
                 ~{Math.round(bucket.forecast.expected_quantity)} orders expected
               </span>
             </h3>
@@ -91,19 +91,19 @@ export function PrepListPanel({ token, categories, menuItems, forecast }: PrepLi
                 return (
                   <label
                     key={item.id}
-                    className="flex cursor-pointer items-center gap-3 rounded-lg border border-[var(--border)] bg-[var(--card-bg)] px-3 py-2"
+                    className="flex cursor-pointer items-center gap-3 rounded-lg border border-border bg-card px-3 py-2"
                   >
                     <input
                       type="checkbox"
                       checked={isChecked}
                       onChange={() => toggle(item.id)}
-                      className="h-4 w-4 rounded border-[var(--border)]"
+                      className="h-4 w-4 rounded border-border"
                     />
-                    <span className={isChecked ? "flex-1 text-sm text-gray-400 line-through" : "flex-1 text-sm text-[var(--foreground)]"}>
+                    <span className={isChecked ? "flex-1 text-sm text-muted-foreground line-through" : "flex-1 text-sm text-foreground"}>
                       {item.name}
-                      {category && <span className="ml-1.5 text-xs text-gray-400">· {category.name}</span>}
+                      {category && <span className="ml-1.5 text-xs text-muted-foreground">· {category.name}</span>}
                     </span>
-                    <span className="text-xs font-medium text-gray-500">~{perItemQty} units</span>
+                    <span className="text-xs font-medium text-muted-foreground">~{perItemQty} units</span>
                   </label>
                 );
               })}
@@ -115,7 +115,7 @@ export function PrepListPanel({ token, categories, menuItems, forecast }: PrepLi
       <button
         onClick={handleMarkPrepStarted}
         disabled={marking}
-        className="flex w-full items-center justify-center gap-2 rounded-lg bg-[var(--sidebar-active)] px-4 py-2.5 text-sm font-medium text-white disabled:opacity-50"
+        className="flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-white disabled:opacity-50"
       >
         <Icon name="check" size={16} />
         {marking ? "Saving…" : "Mark prep started"}

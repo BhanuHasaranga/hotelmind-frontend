@@ -46,7 +46,7 @@ export default async function HotelDetailPage({ params }: { params: Promise<{ id
     return (
       <>
         <TopBar title="Hotel Not Found" />
-        <p className="mt-6 text-sm text-gray-400">No hotel with this ID exists.</p>
+        <p className="mt-6 text-sm text-muted-foreground">No hotel with this ID exists.</p>
       </>
     );
   }
@@ -60,22 +60,22 @@ export default async function HotelDetailPage({ params }: { params: Promise<{ id
 
       <div className="mt-6 space-y-6">
         {/* Hotel details */}
-        <div className="rounded-xl border border-[var(--border)] bg-[var(--card-bg)] p-5 shadow-sm">
+        <div className="rounded-xl border border-border bg-card p-5 shadow-sm">
           <div className="grid grid-cols-2 gap-4 text-sm sm:grid-cols-4">
             <div>
-              <p className="text-gray-400 text-xs">Address</p>
+              <p className="text-muted-foreground text-xs">Address</p>
               <p className="font-medium">{hotel.address}</p>
             </div>
             <div>
-              <p className="text-gray-400 text-xs">Phone</p>
+              <p className="text-muted-foreground text-xs">Phone</p>
               <p className="font-medium">{hotel.phone ?? "—"}</p>
             </div>
             <div>
-              <p className="text-gray-400 text-xs">Email</p>
+              <p className="text-muted-foreground text-xs">Email</p>
               <p className="font-medium">{hotel.email ?? "—"}</p>
             </div>
             <div>
-              <p className="text-gray-400 text-xs">Branches</p>
+              <p className="text-muted-foreground text-xs">Branches</p>
               <p className="font-medium">{hotel.branches.length}</p>
             </div>
           </div>
@@ -84,7 +84,7 @@ export default async function HotelDetailPage({ params }: { params: Promise<{ id
         {/* Room grid */}
         {rooms.length > 0 && (
           <div>
-            <h2 className="mb-3 text-sm font-semibold text-gray-500 uppercase tracking-wide">
+            <h2 className="mb-3 text-sm font-semibold text-muted-foreground uppercase tracking-wide">
               Room Status — {mainBranch?.name}
             </h2>
 

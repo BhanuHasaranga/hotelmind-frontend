@@ -9,17 +9,14 @@ export default async function AssistantPage() {
     return (
       <>
         <TopBar title="AI Assistant" />
-        <p className="mt-6 text-sm text-gray-400">Sign in to use the AI assistant.</p>
+        <p className="mt-6 text-sm text-muted-foreground">Sign in to use the AI assistant.</p>
       </>
     );
   }
 
   return (
     <>
-      <TopBar
-        title="AI Assistant"
-        subtitle="Ask questions about your hotel's data · Portfolio demo — retrieval over real data works live; conversational LLM answers are disabled here to keep hosting costs down, but run locally"
-      />
+      <TopBar title="AI Assistant" subtitle="Natural-language search over your hotel's live operational data" dataSource="real" />
       <div className="mt-6">
         <ChatWindow token={session.token} role={session.role} />
       </div>

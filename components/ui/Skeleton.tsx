@@ -11,7 +11,7 @@ export function Skeleton({ className, width, height, style, ...props }: Skeleton
     <div
       role="status"
       aria-label="Loading"
-      className={clsx("animate-pulse rounded-md bg-[var(--border)]", className)}
+      className={clsx("animate-pulse rounded-md bg-border", className)}
       style={{ width, height, ...style }}
       {...props}
     />

@@ -69,7 +69,7 @@ export function RecommendationHistoryTable({ recommendations }: RecommendationHi
                 ${r.outcomeDelta.toFixed(2)}
               </span>
             ) : (
-              <span className="text-gray-400">Not measured</span>
+              <span className="text-muted-foreground">Not measured</span>
             ),
         },
       ]}

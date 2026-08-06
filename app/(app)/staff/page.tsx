@@ -42,7 +42,7 @@ export default async function StaffPage() {
 
   return (
     <>
-      <TopBar title="Staff" subtitle="Employees and scheduling" />
+      <TopBar title="Staff" subtitle="Employees and scheduling" dataSource="real" />
 
       <div className="mt-6 space-y-6">
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
@@ -51,8 +51,8 @@ export default async function StaffPage() {
             { label: "Active",          value: employees.filter((e) => e.is_active).length,        color: "text-green-600" },
             { label: "Inactive",        value: employees.filter((e) => !e.is_active).length,       color: "text-gray-600" },
           ].map(({ label, value, color }) => (
-            <div key={label} className="rounded-xl border border-[var(--border)] bg-[var(--card-bg)] p-4 shadow-sm">
-              <p className="text-xs text-gray-400">{label}</p>
+            <div key={label} className="rounded-xl border border-border bg-card p-4 shadow-sm">
+              <p className="text-xs text-muted-foreground">{label}</p>
               <p className={`text-2xl font-bold ${color}`}>{value}</p>
             </div>
           ))}

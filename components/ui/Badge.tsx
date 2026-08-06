@@ -1,38 +1,52 @@
-type BadgeVariant = "success" | "warning" | "danger" | "info" | "neutral";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/utils";
 
-const VARIANT_CLASSES: Record<BadgeVariant, string> = {
-  success: "bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300",
-  warning: "bg-amber-100 text-amber-700 dark:bg-amber-900 dark:text-amber-300",
-  danger:  "bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300",
-  info:    "bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300",
-  neutral: "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400",
-};
+const badgeVariants = cva(
+  "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium gap-1 border",
+  {
+    variants: {
+      variant: {
+        success: "bg-[var(--color-success-bg)] text-[var(--color-success-fg)] border-transparent",
+        warning: "bg-[var(--color-warning-bg)] text-[var(--color-warning-fg)] border-transparent",
+        danger: "bg-[var(--color-danger-bg)] text-[var(--color-danger-fg)] border-transparent",
+        info: "bg-[var(--color-info-bg)] text-[var(--color-info-fg)] border-transparent",
+        neutral: "bg-secondary text-secondary-foreground border-transparent",
+        mock: "bg-mock text-mock-foreground border-transparent",
+        outline: "border-border text-foreground bg-transparent",
+      },
+    },
+    defaultVariants: {
+      variant: "neutral",
+    },
+  },
+);
+
+type BadgeVariant = NonNullable<VariantProps<typeof badgeVariants>["variant"]>;
 
 const STATUS_TO_VARIANT: Record<string, BadgeVariant> = {
-  AVAILABLE:   "success",
-  CONFIRMED:   "success",
-  CHECKED_IN:  "info",
+  AVAILABLE: "success",
+  CONFIRMED: "success",
+  CHECKED_IN: "info",
   CHECKED_OUT: "neutral",
-  PENDING:     "warning",
-  CANCELLED:   "danger",
-  NO_SHOW:     "danger",
-  OCCUPIED:    "info",
+  PENDING: "warning",
+  CANCELLED: "danger",
+  NO_SHOW: "danger",
+  OCCUPIED: "info",
   MAINTENANCE: "warning",
-  CLEANING:    "warning",
-  OPEN:        "info",
-  CLOSED:      "neutral",
+  CLEANING: "warning",
+  OPEN: "info",
+  CLOSED: "neutral",
 };
 
-interface BadgeProps {
+interface BadgeProps extends VariantProps<typeof badgeVariants> {
   label: string;
-  variant?: BadgeVariant;
+  className?: string;
 }
 
-export function Badge({ label, variant }: BadgeProps) {
+export function Badge({ label, variant, className }: BadgeProps) {
   const v = variant ?? STATUS_TO_VARIANT[label] ?? "neutral";
-  return (
-    <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${VARIANT_CLASSES[v]}`}>
-      {label}
-    </span>
-  );
+  return <span className={cn(badgeVariants({ variant: v }), className)}>{label}</span>;
 }
+
+export { badgeVariants };
+export type { BadgeVariant };

@@ -49,11 +49,11 @@ export function ChurnInterventionCard({ token, guestLabel, prediction, onResolve
       </CardHeader>
       <CardContent>
         {prediction.churn_probability != null && (
-          <p className="text-sm text-[var(--foreground)]">
+          <p className="text-sm text-foreground">
             {Math.round(prediction.churn_probability * 100)}% churn probability
           </p>
         )}
-        {prediction.note && <p className="mt-1 text-xs text-gray-500">{prediction.note}</p>}
+        {prediction.note && <p className="mt-1 text-xs text-muted-foreground">{prediction.note}</p>}
       </CardContent>
       <CardFooter>
         <Button variant="ghost" size="sm" onClick={() => handleAction("DISMISSED")} disabled={pending}>

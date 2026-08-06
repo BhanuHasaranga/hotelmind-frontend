@@ -18,7 +18,7 @@ export function LiveOccupancyBadge({ initialOccupancyPct, token }: LiveOccupancy
   const displayPct = liveOccupancyPct ?? initialOccupancyPct;
 
   return (
-    <span className="mt-1 flex items-center gap-1.5 text-xs text-gray-400">
+    <span className="mt-1 flex items-center gap-1.5 text-xs text-muted-foreground">
       <span
         className={`h-1.5 w-1.5 rounded-full ${connected ? "bg-emerald-500" : "bg-gray-400"}`}
         title={connected ? "Live" : "Reconnecting…"}

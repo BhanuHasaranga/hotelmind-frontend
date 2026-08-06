@@ -36,8 +36,8 @@ export default async function RestaurantDemandPage() {
   if (!active?.branchId) {
     return (
       <>
-        <TopBar title="Demand Forecast" subtitle="AI-predicted restaurant demand" />
-        <p className="mt-6 text-sm text-gray-400">
+        <TopBar title="Demand Forecast" subtitle="AI-predicted restaurant demand" dataSource="beta" />
+        <p className="mt-6 text-sm text-muted-foreground">
           Select a branch from the switcher above to view demand forecasts.
         </p>
       </>
@@ -64,11 +64,11 @@ export default async function RestaurantDemandPage() {
 
   return (
     <>
-      <TopBar title="Demand Forecast" subtitle="AI-predicted restaurant demand and prep planning" />
+      <TopBar title="Demand Forecast" subtitle="AI-predicted restaurant demand and prep planning" dataSource="beta" />
       <div className="mt-6 space-y-4">
-        <p className="text-xs text-gray-400">
+        <p className="text-xs text-muted-foreground">
           Looking for live orders and tables?{" "}
-          <Link href="/restaurant" className="text-[var(--sidebar-active)] hover:underline">
+          <Link href="/restaurant" className="text-primary hover:underline">
             Go to Restaurant Operations
           </Link>
         </p>
