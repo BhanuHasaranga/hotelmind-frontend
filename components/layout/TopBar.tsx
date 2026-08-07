@@ -17,8 +17,9 @@ export async function TopBar({ title, subtitle, dataSource }: TopBarProps) {
   const branches = isOwner && session ? await listAllBranches(session.token) : [];
   const activeBranchId = session ? await resolveActiveBranchId(session) : null;
 
+  // py-5 mirrors the sidebar brand block so both bottom borders line up.
   return (
-    <header className="flex h-16 items-center justify-between border-b border-border bg-card px-6">
+    <header className="flex items-center justify-between border-b border-border bg-card px-6 py-5">
       <div className="flex items-center gap-3">
         <div>
           <div className="flex items-center gap-2">
