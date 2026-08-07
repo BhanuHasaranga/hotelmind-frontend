@@ -43,7 +43,7 @@ export default async function CheckInOutPage() {
       <TopBar title="Check-in / Check-out" subtitle="Front-desk arrivals and departures board" dataSource="mock" />
 
       <div className="mt-6 space-y-6">
-        <Alert variant="mock" icon={<Sparkles className="h-4 w-4" />} title="Preview module">
+        <Alert variant="preview" icon={<Sparkles className="h-4 w-4" />} title="Preview module">
           hotelmind-backend has no dedicated front-desk workflow beyond the booking status enum — this screen is a
           fully-designed preview backed by simulated data (lib/adapters/front-desk).
         </Alert>

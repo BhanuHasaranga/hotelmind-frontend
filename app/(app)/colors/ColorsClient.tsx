@@ -477,6 +477,19 @@ export function ColorsClient() {
               accent — &ldquo;preview&rdquo; and &ldquo;premium&rdquo; must stay distinguishable.
             </CardContent>
           </Card>
+
+          <div className="md:col-span-2 xl:col-span-3">
+            <Alert
+              variant="preview"
+              icon={<Sparkles className="h-4 w-4" />}
+              title="Preview module"
+            >
+              The page-level preview banner uses the soft brand green so a persistent, full-width
+              notice stays calm. The violet <code className="font-mono">mock</code> marker still does
+              the honest work at the point of use — see the &ldquo;Simulated preview&rdquo; badge and
+              the sidebar dot.
+            </Alert>
+          </div>
         </div>
       </Section>
 

@@ -33,7 +33,7 @@ export default async function MaintenancePage() {
       <TopBar title="Maintenance" subtitle="Work orders and asset tickets" dataSource="mock" />
 
       <div className="mt-6 space-y-6">
-        <Alert variant="mock" icon={<Sparkles className="h-4 w-4" />} title="Preview module">
+        <Alert variant="preview" icon={<Sparkles className="h-4 w-4" />} title="Preview module">
           hotelmind-backend has no maintenance ticketing module yet — this screen is a fully-designed preview backed
           by simulated data (lib/adapters/maintenance) so the workflow can be demonstrated before a real integration
           exists.

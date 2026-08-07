@@ -37,7 +37,7 @@ export default async function HrPage() {
       <TopBar title="HR & Payroll" subtitle="Payroll, leave requests and workforce metrics" dataSource="mock" />
 
       <div className="mt-6 space-y-6">
-        <Alert variant="mock" icon={<Sparkles className="h-4 w-4" />} title="Preview module">
+        <Alert variant="preview" icon={<Sparkles className="h-4 w-4" />} title="Preview module">
           hotelmind-backend has no payroll or leave-management module yet — this screen is a fully-designed preview
           backed by simulated data (lib/adapters/hr).
         </Alert>

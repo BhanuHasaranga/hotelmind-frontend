@@ -36,7 +36,7 @@ export default async function AdminPage() {
       <TopBar title="Administration" subtitle="Users, audit log and system health" dataSource="mock" />
 
       <div className="mt-6 space-y-6">
-        <Alert variant="mock" icon={<Sparkles className="h-4 w-4" />} title="Preview module">
+        <Alert variant="preview" icon={<Sparkles className="h-4 w-4" />} title="Preview module">
           hotelmind-backend has no self-service admin console, audit trail, or SSO/IAM beyond JWT yet — this screen
           is a fully-designed preview backed by simulated data (lib/adapters/admin), scoped to OWNER sessions.
         </Alert>

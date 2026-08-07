@@ -66,6 +66,8 @@ All mocked domains follow the same structure. Currently implemented:
 
 Every mock generator uses `lib/adapters/seed.ts`'s `seededRandom` + `dailySeedKey`, anchored to `new Date().setHours(0,0,0,0)` (not raw `Date.now()`) wherever a relative timestamp is generated — this is what makes two calls to the same generator on the same day produce byte-identical output, verified by `lib/adapters/seed.test.ts`. When adding a new mock domain, always derive timestamps from a `const anchor = new Date().setHours(0,0,0,0)` computed once per call, never from `Date.now()` directly inside a per-row callback, or determinism breaks.
 
+The page-level "Preview module" banner is the one exception to the violet treatment: it uses `Alert variant="preview"` (soft brand green), because a persistent full-width banner in violet fought with the page. This is deliberately **not** a recolor of the `--mock` token — every one of those pages still carries a violet `DataSourceBadge source="mock"` and a violet sidebar dot, so the simulated-data signal is intact at the point of use.
+
 Every mock-sourced screen/widget carries a `<DataSourceBadge source="mock" />` (or `"beta"` for real-endpoint features whose underlying model is trained on synthetic data — restaurant demand, staffing forecasts — per `docs/business_gap_analysis.md`). Mock-only nav items get a small violet dot in the sidebar. This is the core mechanism preventing the UI from overclaiming backend capability.
 
 ## 5b. Data visualization

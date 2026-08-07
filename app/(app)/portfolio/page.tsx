@@ -38,7 +38,7 @@ export default async function PortfolioPage() {
       <TopBar title="Multi-Property Rollup" subtitle="Cross-property performance comparison" dataSource="mock" />
 
       <div className="mt-6 space-y-6">
-        <Alert variant="mock" icon={<Sparkles className="h-4 w-4" />} title="Preview module">
+        <Alert variant="preview" icon={<Sparkles className="h-4 w-4" />} title="Preview module">
           hotelmind-backend supports a single hotel group with multiple branches but has no portfolio-of-brands or
           cross-property rollup reporting yet — this screen is a fully-designed preview backed by simulated data
           (lib/adapters/portfolio), scoped to OWNER sessions.

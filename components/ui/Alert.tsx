@@ -10,6 +10,13 @@ const alertVariants = cva("relative w-full rounded-lg border px-4 py-3 text-sm",
       warning: "border-transparent bg-[var(--color-warning-bg)] text-[var(--color-warning-fg)]",
       destructive: "border-transparent bg-[var(--color-danger-bg)] text-[var(--color-danger-fg)]",
       mock: "border-dashed border-mock-foreground/30 bg-mock text-mock-foreground",
+      // The page-level "Preview module" banner. Uses the soft brand green so a
+      // persistent, full-width banner reads calm and on-brand instead of
+      // shouting. Note this is NOT a recolor of the `mock` variant: the violet
+      // --mock token still marks simulated data everywhere it matters at the
+      // point of use (DataSourceBadge, sidebar dots, inline preview cards), and
+      // these banners always sit alongside one of those markers.
+      preview: "border-dashed border-primary/25 bg-accent text-primary",
     },
   },
   defaultVariants: { variant: "default" },
