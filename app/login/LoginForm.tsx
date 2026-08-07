@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Icon } from "@/components/ui/Icon";
+import { Logo } from "@/components/ui/Logo";
 import { Button } from "@/components/ui/Button";
 
 const DEMO_ACCOUNTS = [
@@ -50,7 +50,7 @@ export function LoginForm() {
       <div className="w-full max-w-md">
         <div className="mb-8 flex flex-col items-center gap-2">
           <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-white">
-            <Icon name="brand" size={26} />
+            <Logo size={24} />
           </div>
           <h1 className="text-xl font-bold text-foreground">HotelMind AI</h1>
           <p className="text-sm text-muted-foreground">Operations Intelligence Platform</p>

@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { StatCard } from "@/components/ui/StatCard";
 import { DataTable } from "@/components/ui/DataTable";
 import { Icon } from "@/components/ui/Icon";
+import { Logo } from "@/components/ui/Logo";
 import { TrendLineChart } from "@/components/charts/TrendLineChart";
 import { BarComparisonChart } from "@/components/charts/BarComparisonChart";
 import { CHART, SERIES } from "@/lib/chart-colors";
@@ -171,7 +172,7 @@ export function ColorsClient() {
           <CardContent className="space-y-6">
             <div className="flex items-center gap-3">
               <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-primary-foreground">
-                <Icon name="brand" size={26} />
+                <Logo size={24} />
               </span>
               <div>
                 <p className="text-lg font-bold text-foreground">HotelMind AI</p>
@@ -215,7 +216,114 @@ export function ColorsClient() {
         </Card>
       </Section>
 
-      {/* 2 — Core colors */}
+      {/* 2 — Logo */}
+      <Section
+        id="logo"
+        title="Logo"
+        blurb="Five bars that read as a bar chart first and an HM ligature second: bar 1 is H's left stem, bar 2 its crossbar, the wide centre bar is the stem shared by H and M, and bars 4–5 close the M. The mark is drawn in currentColor, so one component covers every variant."
+      >
+        <div className="grid gap-4 lg:grid-cols-2">
+          <Card>
+            <CardHeader>
+              <div>
+                <CardTitle>Variants</CardTitle>
+                <CardDescription>Same geometry throughout — only the inherited color changes</CardDescription>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <Row className="gap-6">
+                <div className="flex flex-col items-center gap-2">
+                  <span className="flex h-20 w-20 items-center justify-center rounded-xl border border-border bg-card">
+                    <Logo size={44} className="text-primary" />
+                  </span>
+                  <p className="text-xs text-muted-foreground">Primary</p>
+                </div>
+                <div className="flex flex-col items-center gap-2">
+                  <span className="flex h-20 w-20 items-center justify-center rounded-xl bg-primary">
+                    <Logo size={44} className="text-primary-foreground" />
+                  </span>
+                  <p className="text-xs text-muted-foreground">Knockout</p>
+                </div>
+                <div className="flex flex-col items-center gap-2">
+                  <span className="flex h-20 w-20 items-center justify-center rounded-xl border border-border bg-white">
+                    <Logo size={44} className="text-black" />
+                  </span>
+                  <p className="text-xs text-muted-foreground">Mono black</p>
+                </div>
+                <div className="flex flex-col items-center gap-2">
+                  <span className="flex h-20 w-20 items-center justify-center rounded-xl bg-[var(--color-brand-deep)]">
+                    <Logo size={44} className="text-white" />
+                  </span>
+                  <p className="text-xs text-muted-foreground">Mono white</p>
+                </div>
+              </Row>
+              <p className="text-xs text-muted-foreground">
+                Use <code className="font-mono text-primary">&lt;Logo /&gt;</code> and let the mark inherit its
+                color from the surrounding text. The static files in{" "}
+                <code className="font-mono">/public</code> are for favicons and external embeds only.
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <div>
+                <CardTitle>Sizing &amp; clear space</CardTitle>
+                <CardDescription>Square 24×24 viewBox, so it aligns with the icon grid</CardDescription>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <Row className="gap-6">
+                {[16, 24, 32, 48].map((s) => (
+                  <div key={s} className="flex flex-col items-center gap-2">
+                    <span className="flex h-14 items-center justify-center">
+                      <Logo size={s} className="text-primary" />
+                    </span>
+                    <p className="text-xs text-muted-foreground">{s}px</p>
+                  </div>
+                ))}
+              </Row>
+              <div className="rounded-lg bg-accent p-4">
+                <p className="text-sm font-semibold text-primary">Rules</p>
+                <ul className="mt-2 space-y-1 text-sm text-foreground/80">
+                  <li>· Never recolor individual bars — the mark is always one flat color</li>
+                  <li>· Never stretch: the 1:1 ratio is fixed</li>
+                  <li>· Keep clear space of at least one bar width on every side</li>
+                  <li>· Below 16px, pair it with the wordmark rather than shrinking further</li>
+                </ul>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        <Card>
+          <CardHeader>
+            <div>
+              <CardTitle>Lockup</CardTitle>
+              <CardDescription>How the mark sits with the name in application chrome</CardDescription>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <Row className="gap-10">
+              <div className="flex items-center gap-2">
+                <Logo size={24} className="text-primary" />
+                <div>
+                  <p className="text-sm font-bold leading-tight text-foreground">HotelMind</p>
+                  <p className="text-xs leading-tight text-muted-foreground">AI Platform</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-primary-foreground">
+                  <Logo size={24} />
+                </span>
+                <p className="text-lg font-bold text-foreground">HotelMind AI</p>
+              </div>
+            </Row>
+          </CardContent>
+        </Card>
+      </Section>
+
+      {/* 3 — Core colors */}
       <Section
         id="core"
         title="Core colors"

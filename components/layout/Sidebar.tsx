@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronRight } from "lucide-react";
 import { Icon, type IconName } from "@/components/ui/Icon";
+import { Logo } from "@/components/ui/Logo";
 import { CAPABILITIES, type Capability } from "@/lib/adapters/config";
 import { cn } from "@/lib/utils";
 
@@ -117,7 +118,7 @@ export function Sidebar({ role }: SidebarProps) {
   return (
     <aside className="flex h-screen w-64 flex-col border-r border-sidebar-border bg-sidebar text-sidebar-foreground">
       <div className="flex items-center gap-2 border-b border-sidebar-border px-6 py-5">
-        <Icon name="brand" size={24} className="text-primary" />
+        <Logo size={24} className="text-primary" />
         <div>
           <p className="text-sm font-bold leading-tight text-foreground">HotelMind</p>
           <p className="text-xs leading-tight text-muted-foreground">AI Platform</p>
