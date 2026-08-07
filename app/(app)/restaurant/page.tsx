@@ -50,9 +50,9 @@ export default async function RestaurantPage() {
       <div className="mt-6 space-y-6">
         <div className="grid grid-cols-3 gap-3">
           {[
-            { label: "Open Orders",   value: orders.filter((o) => o.status === "OPEN").length,   color: "text-blue-600" },
-            { label: "Closed Today",  value: orders.filter((o) => o.status === "CLOSED").length, color: "text-green-600" },
-            { label: "Total Revenue", value: `$${orders.filter((o) => o.status === "CLOSED").reduce((s, o) => s + Number(o.total_amount), 0).toLocaleString()}`, color: "text-purple-600" },
+            { label: "Open Orders",   value: orders.filter((o) => o.status === "OPEN").length,   color: "text-[var(--color-info-fg)]" },
+            { label: "Closed Today",  value: orders.filter((o) => o.status === "CLOSED").length, color: "text-[var(--color-success-fg)]" },
+            { label: "Total Revenue", value: `$${orders.filter((o) => o.status === "CLOSED").reduce((s, o) => s + Number(o.total_amount), 0).toLocaleString()}`, color: "text-primary" },
           ].map(({ label, value, color }) => (
             <div key={label} className="rounded-xl border border-border bg-card p-4 shadow-sm">
               <p className="text-xs text-muted-foreground">{label}</p>

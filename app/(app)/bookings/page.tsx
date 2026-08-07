@@ -55,10 +55,12 @@ export default async function BookingsPage() {
       <div className="mt-6 space-y-6">
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
           {[
-            { label: "Total",      value: counts.total,     color: "text-blue-600" },
-            { label: "Pending",    value: counts.pending,   color: "text-amber-600" },
-            { label: "Confirmed",  value: counts.confirmed, color: "text-green-600" },
-            { label: "Checked In", value: counts.checkedIn, color: "text-purple-600" },
+            // Total is a brand/neutral headline; the rest mirror the semantic
+            // status colors used by their matching Badge variants.
+            { label: "Total",      value: counts.total,     color: "text-primary" },
+            { label: "Pending",    value: counts.pending,   color: "text-[var(--color-warning-fg)]" },
+            { label: "Confirmed",  value: counts.confirmed, color: "text-[var(--color-success-fg)]" },
+            { label: "Checked In", value: counts.checkedIn, color: "text-[var(--color-info-fg)]" },
           ].map(({ label, value, color }) => (
             <div key={label} className="rounded-xl border border-border bg-card p-4 shadow-sm">
               <p className="text-xs text-muted-foreground">{label}</p>

@@ -115,12 +115,12 @@ export function Sidebar({ role }: SidebarProps) {
   const entries = NAV.filter((entry) => visibleForRole(entry.roles, role));
 
   return (
-    <aside className="flex h-screen w-64 flex-col bg-sidebar text-sidebar-foreground shadow-xl">
+    <aside className="flex h-screen w-64 flex-col border-r border-sidebar-border bg-sidebar text-sidebar-foreground">
       <div className="flex items-center gap-2 border-b border-sidebar-border px-6 py-5">
-        <Icon name="brand" size={24} className="text-white" />
+        <Icon name="brand" size={24} className="text-primary" />
         <div>
-          <p className="text-sm font-bold leading-tight text-white">HotelMind</p>
-          <p className="text-xs leading-tight text-blue-300">AI Platform</p>
+          <p className="text-sm font-bold leading-tight text-foreground">HotelMind</p>
+          <p className="text-xs leading-tight text-muted-foreground">AI Platform</p>
         </div>
       </div>
 
@@ -144,8 +144,8 @@ export function Sidebar({ role }: SidebarProps) {
                 onClick={() => setCollapsed((c) => ({ ...c, [entry.id]: !isOpen }))}
                 className={cn(
                   "flex w-full items-center gap-3 rounded-lg px-3 py-2 text-xs font-semibold uppercase tracking-wide transition-colors",
-                  "text-blue-200/70 hover:text-white",
-                  groupActive && "text-white",
+                  "text-muted-foreground hover:text-foreground",
+                  groupActive && "text-foreground",
                 )}
               >
                 <span className="flex w-5 items-center justify-center">
@@ -171,7 +171,7 @@ export function Sidebar({ role }: SidebarProps) {
       </nav>
 
       <div className="border-t border-sidebar-border px-6 py-4">
-        <p className="text-xs text-blue-300 opacity-70">v2.0.0 · Enterprise</p>
+        <p className="text-xs text-muted-foreground">v2.0.0 · Enterprise</p>
       </div>
     </aside>
   );
@@ -183,9 +183,13 @@ function NavLink({ entry, isActive, compact = false }: { entry: NavLeaf; isActiv
     <Link
       href={entry.href}
       className={cn(
-        "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
+        "relative flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
         compact && "py-2 text-[13px]",
-        isActive ? "bg-sidebar-primary text-white" : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-white",
+        isActive
+          ? // Soft green fill + dark green text, plus a brand-green left bar as
+            // a second, non-color-dependent cue that this item is selected.
+            "bg-sidebar-primary font-semibold text-sidebar-primary-foreground before:absolute before:left-0 before:top-1/2 before:h-5 before:w-1 before:-translate-y-1/2 before:rounded-r before:bg-primary before:content-['']"
+          : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
       )}
     >
       <span className="flex w-5 items-center justify-center">
@@ -194,7 +198,7 @@ function NavLink({ entry, isActive, compact = false }: { entry: NavLeaf; isActiv
       <span className="flex-1">{entry.label}</span>
       {mocked && (
         <span
-          className="h-1.5 w-1.5 shrink-0 rounded-full bg-violet-400"
+          className="h-1.5 w-1.5 shrink-0 rounded-full bg-mock-foreground"
           title="Preview feature — simulated data, not yet backed by a live integration"
         />
       )}

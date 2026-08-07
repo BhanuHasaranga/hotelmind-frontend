@@ -47,8 +47,8 @@ export default async function PortfolioPage() {
         {summary && (
           <>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <StatCard label="Portfolio RevPAR" value={`$${summary.portfolioRevPar}`} icon="revenue" accent="green" />
-              <StatCard label="Portfolio Occupancy" value={`${summary.portfolioOccupancyPct}%`} icon="hotel" accent="blue" />
+              <StatCard label="Portfolio RevPAR" value={`$${summary.portfolioRevPar}`} icon="revenue" accent="success" />
+              <StatCard label="Portfolio Occupancy" value={`${summary.portfolioOccupancyPct}%`} icon="hotel" accent="brand" />
             </div>
 
             <DataTable<PropertyPerformance>

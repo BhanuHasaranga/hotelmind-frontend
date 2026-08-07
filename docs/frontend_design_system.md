@@ -4,16 +4,28 @@ This document explains the design decisions behind the enterprise redesign, how 
 
 ## 1. Design tokens
 
-All tokens live in `app/globals.css` as CSS custom properties, consumed by Tailwind v4's `@theme inline` block. Two layers:
+All tokens live in `app/globals.css` as CSS custom properties, consumed by Tailwind v4's `@theme inline` block. Three layers:
 
-- **Semantic tokens** (`--background`, `--foreground`, `--card`, `--primary`, `--secondary`, `--muted`, `--accent`, `--destructive`, `--border`, `--input`, `--ring`, `--chart-1..5`, `--sidebar*`) — the shadcn/ui-standard names, so any shadcn component works against this theme unmodified.
-- **HotelMind-specific tokens** — the pre-existing `--color-success/warning/danger/info` (+ `-bg`/`-fg` pairs) used by `Badge`, `Alert`, and status indicators, plus a new `--mock` / `--mock-foreground` pair (a distinct violet hue) used **exclusively** to mark simulated/preview data. Never reuse `--mock` for anything with real semantic meaning — its entire purpose is visual distinctiveness from real data.
+- **Brand constants** (`--color-brand-primary` `#0B3D2E` British Racing Green, `--color-brand-secondary` `#145A43`, `--color-brand-light` `#E8F1ED`, `--color-brand-accent` `#C9A96E` Champagne, `--color-brand-deep` `#071F18`) — the fixed HotelMind identity. These do **not** change between themes; theme-dependent roles are expressed through the semantic tokens below, which is what components should normally consume.
+- **Semantic tokens** (`--background`, `--foreground`, `--card`, `--primary`, `--secondary`, `--muted`, `--accent`, `--destructive`, `--border`, `--input`, `--ring`, `--chart-1..5`, `--sidebar*`) — the shadcn/ui-standard names, so any shadcn component works against this theme unmodified. Plus a text scale: `--color-text-primary/secondary/muted/brand`.
+- **HotelMind-specific tokens** — `--color-success/warning/danger/info` (+ `-bg`/`-fg` pairs) used by `Badge`, `Alert`, and status indicators, plus the `--mock` / `--mock-foreground` pair (a distinct violet hue) used **exclusively** to mark simulated/preview data. Never reuse `--mock` for anything with real semantic meaning — its entire purpose is visual distinctiveness from real data, and it is deliberately **not** merged into the champagne accent: "preview" and "premium" must stay distinguishable.
 
-Light values live under `:root`; dark values under `.dark` (class-based, toggled by `next-themes`). A `@media (prefers-color-scheme: dark)` fallback covers the brief window before the theme class hydrates, and users without a stored preference. Legacy variable names (`--card-bg`, `--sidebar-bg`, etc.) are kept alongside the new semantic names for now — do not remove them until every remaining consumer has migrated off the bracket syntax (`bg-[var(--card-bg)]`).
+Two rules the palette depends on:
+
+1. **Green is identity and interaction, never a large light-theme surface.** `#0B3D2E` is a primary action, an active indicator, a KPI value — it is never the page background, and the sidebar is a light surface (`--sidebar: #FFFFFF`). Note `--sidebar-primary` means the active item's *soft green background* (with `--sidebar-primary-foreground` as its dark green text), the inverse of the old dark-navy scheme where it was a solid fill behind white text.
+2. **Semantic colors stay independent of the brand.** Because the brand is now green, `--color-success` is deliberately a brighter, cooler green than `--color-brand-primary`, so a `CONFIRMED` badge never reads as a brand element.
+
+Light values live under `:root`; dark values under `.dark` (class-based, toggled by `next-themes`). There is intentionally **no** `@media (prefers-color-scheme: dark)` fallback — see §2. Legacy variable names (`--card-bg`, `--sidebar-bg`, etc.) are kept alongside the new semantic names for now — do not remove them until every remaining consumer has migrated off the bracket syntax (`bg-[var(--card-bg)]`).
+
+`/colors` renders the full design system — brand rationale, swatches, semantic colors, typography, every component, charts, and a dark-theme comparison. Treat it as the living reference and update it when tokens change.
 
 ## 2. Theming
 
-`next-themes` is mounted in `app/layout.tsx` (root layout, not the `(app)` route group, so `/login` themes correctly too) via `components/shared/theme-provider.tsx`, `attribute="class"`, `defaultTheme="system"`. The toggle (`components/shared/theme-toggle.tsx`) lives inside `UserMenu`'s dropdown and offers Light / Dark / System.
+`next-themes` is mounted in `app/layout.tsx` (root layout, not the `(app)` route group, so `/login` themes correctly too) via `components/shared/theme-provider.tsx`, `attribute="class"`, `defaultTheme="light"`.
+
+**HotelMind is light-first: it opens light regardless of the OS setting.** This is a product decision — the primary users are hotel managers and executives, and the default experience should be bright and manager-oriented rather than a dark analytics console. Two things enforce it, and both must stay as they are: `enableSystem` is **not** set on the provider, and there is **no** `@media (prefers-color-scheme: dark)` block in `globals.css`. Re-adding either would make dark-OS users open in dark again.
+
+Dark remains a deliberate, fully-designed theme (built on Deep Green `#071F18`, not an inversion of the light theme) and is opt-in: the toggle (`components/shared/theme-toggle.tsx`) lives inside `UserMenu`'s dropdown and still offers Light / Dark / System.
 
 ## 3. Component library
 
@@ -55,6 +67,15 @@ All mocked domains follow the same structure. Currently implemented:
 Every mock generator uses `lib/adapters/seed.ts`'s `seededRandom` + `dailySeedKey`, anchored to `new Date().setHours(0,0,0,0)` (not raw `Date.now()`) wherever a relative timestamp is generated — this is what makes two calls to the same generator on the same day produce byte-identical output, verified by `lib/adapters/seed.test.ts`. When adding a new mock domain, always derive timestamps from a `const anchor = new Date().setHours(0,0,0,0)` computed once per call, never from `Date.now()` directly inside a per-row callback, or determinism breaks.
 
 Every mock-sourced screen/widget carries a `<DataSourceBadge source="mock" />` (or `"beta"` for real-endpoint features whose underlying model is trained on synthetic data — restaurant demand, staffing forecasts — per `docs/business_gap_analysis.md`). Mock-only nav items get a small violet dot in the sidebar. This is the core mechanism preventing the UI from overclaiming backend capability.
+
+## 5b. Data visualization
+
+Chart color lives in `lib/chart-colors.ts` — **never pass raw hex from a call site.** It exports two groups, because brand color and categorical series color do different jobs:
+
+- `CHART` (`primary` / `secondary` / `highlight` / `fill`) — brand-forward roles for the common 1–2 series case, so the primary mark looks like HotelMind. Champagne (`highlight`) conventionally marks the forecast/AI-derived series, as in `OccupancyRevenueTrendChart`.
+- `SERIES` / `SERIES_DARK` — a five-slot categorical scale for genuine multi-series charts.
+
+The brand colors deliberately are **not** the categorical scale: `#0B3D2E` sits far below the categorical lightness band and both it and champagne fail the chroma floor, so using them as slots 1..n produces charts that are muddy for everyone and unreadable for colorblind users. `SERIES` was validated (lightness band, chroma floor, CVD separation, normal-vision floor, contrast) and passes every check in both modes; worst adjacent CVD ΔE is 24.2 light / 16.6 dark. **The slot order is the colorblind-safety mechanism — do not reorder it, and do not append a sixth hue by hand.** Past five series, fold the tail into "Other" or use small multiples. Grid/axis ink uses `CHART_AXIS`/`CHART_GRID`, which reference theme tokens so they follow the active theme.
 
 ## 6. AI Assistant states
 

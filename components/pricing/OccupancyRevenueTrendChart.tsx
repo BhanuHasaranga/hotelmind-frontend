@@ -1,6 +1,7 @@
 "use client";
 
 import { TrendLineChart } from "@/components/charts/TrendLineChart";
+import { CHART } from "@/lib/chart-colors";
 import type { DailyOccupancy } from "@/lib/types/dashboard";
 import type { OccupancyDayForecast } from "@/lib/types/ml";
 
@@ -29,10 +30,12 @@ export function OccupancyRevenueTrendChart({ history, forecast }: OccupancyReven
       data={data}
       xKey="date"
       series={[
-        { key: "actual_occupancy_pct", label: "Actual occupancy", color: "#1d4ed8" },
-        { key: "predicted_occupancy_pct", label: "Forecast occupancy", color: "#16a34a" },
+        // Actual = brand green (the real, authoritative series); forecast =
+        // champagne, tying the predicted series to HotelMind's AI/premium accent.
+        { key: "actual_occupancy_pct", label: "Actual occupancy", color: CHART.primary },
+        { key: "predicted_occupancy_pct", label: "Forecast occupancy", color: CHART.highlight },
       ]}
-      band={{ upperKey: "ci_upper", lowerKey: "ci_lower", color: "#16a34a", label: "Forecast confidence" }}
+      band={{ upperKey: "ci_upper", lowerKey: "ci_lower", color: CHART.highlight, label: "Forecast confidence" }}
     />
   );
 }

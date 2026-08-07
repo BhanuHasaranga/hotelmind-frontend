@@ -36,10 +36,10 @@ export default async function LoyaltyPage() {
         {summary && (
           <>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-4">
-              <StatCard label="Silver Members" value={summary.tierCounts.SILVER} accent="blue" />
-              <StatCard label="Gold Members" value={summary.tierCounts.GOLD} accent="amber" />
-              <StatCard label="Platinum Members" value={summary.tierCounts.PLATINUM} accent="purple" />
-              <StatCard label="Points Liability" value={summary.totalPointsLiability.toLocaleString()} accent="green" />
+              <StatCard label="Silver Members" value={summary.tierCounts.SILVER} accent="brand" />
+              <StatCard label="Gold Members" value={summary.tierCounts.GOLD} accent="warning" />
+              <StatCard label="Platinum Members" value={summary.tierCounts.PLATINUM} accent="premium" />
+              <StatCard label="Points Liability" value={summary.totalPointsLiability.toLocaleString()} accent="success" />
             </div>
 
             <DataTable<LoyaltyMember>

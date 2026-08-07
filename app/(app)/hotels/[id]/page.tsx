@@ -21,11 +21,15 @@ async function getRooms(branchId: string, token: string): Promise<Room[]> {
   }
 }
 
+// Soft, token-driven surfaces. The tokens already carry their own dark-theme
+// values, so no `dark:` overrides are needed here. OCCUPIED uses the brand's
+// soft green (it is the hotel's normal, desirable state); the rest map to the
+// same semantic colors their status badges use elsewhere.
 const STATUS_COLOR: Record<string, string> = {
-  AVAILABLE:   "bg-green-100 border-green-300 dark:bg-green-900",
-  OCCUPIED:    "bg-blue-100 border-blue-300 dark:bg-blue-900",
-  MAINTENANCE: "bg-amber-100 border-amber-300 dark:bg-amber-900",
-  CLEANING:    "bg-purple-100 border-purple-300 dark:bg-purple-900",
+  AVAILABLE:   "bg-[var(--color-success-bg)] border-[var(--color-success-fg)]/25",
+  OCCUPIED:    "bg-accent border-primary/25",
+  MAINTENANCE: "bg-[var(--color-warning-bg)] border-[var(--color-warning-fg)]/25",
+  CLEANING:    "bg-[var(--color-info-bg)] border-[var(--color-info-fg)]/25",
 };
 
 export default async function HotelDetailPage({ params }: { params: Promise<{ id: string }> }) {

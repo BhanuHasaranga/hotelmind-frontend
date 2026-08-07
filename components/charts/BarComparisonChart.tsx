@@ -10,6 +10,7 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
+import { CHART_AXIS, CHART_GRID } from "@/lib/chart-colors";
 
 export interface BarSeries {
   key: string;
@@ -26,8 +27,8 @@ interface BarComparisonChartProps {
   axisColor?: string;
 }
 
-const DEFAULT_GRID_COLOR = "#94a3b8";
-const DEFAULT_AXIS_COLOR = "#94a3b8";
+const DEFAULT_GRID_COLOR = CHART_GRID;
+const DEFAULT_AXIS_COLOR = CHART_AXIS;
 
 export function BarComparisonChart({
   data,

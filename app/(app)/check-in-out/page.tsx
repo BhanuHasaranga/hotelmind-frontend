@@ -51,9 +51,9 @@ export default async function CheckInOutPage() {
         {summary && (
           <>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-              <StatCard label="Arrivals Today" value={summary.arrivalsToday} icon="checkIn" accent="blue" />
-              <StatCard label="In House" value={summary.inHouse} icon="hotel" accent="purple" />
-              <StatCard label="Departures Today" value={summary.departuresToday} icon="checkOut" accent="amber" />
+              <StatCard label="Arrivals Today" value={summary.arrivalsToday} icon="checkIn" accent="brand" />
+              <StatCard label="In House" value={summary.inHouse} icon="hotel" accent="premium" />
+              <StatCard label="Departures Today" value={summary.departuresToday} icon="checkOut" accent="warning" />
             </div>
 
             <DataTable<FrontDeskEntry>

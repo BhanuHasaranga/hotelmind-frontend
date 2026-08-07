@@ -1,6 +1,7 @@
 import { render } from "@testing-library/react";
 import { describe, expect, it, beforeEach, afterEach, vi } from "vitest";
 import { TrendLineChart } from "./TrendLineChart";
+import { CHART } from "@/lib/chart-colors";
 
 const data = [
   { day: "Mon", occupancy: 60, forecastLower: 55, forecastUpper: 65 },
@@ -36,8 +37,8 @@ describe("TrendLineChart", () => {
       <TrendLineChart
         data={data}
         xKey="day"
-        series={[{ key: "occupancy", label: "Occupancy", color: "#1d4ed8" }]}
-        band={{ upperKey: "forecastUpper", lowerKey: "forecastLower", color: "#1d4ed8" }}
+        series={[{ key: "occupancy", label: "Occupancy", color: CHART.primary }]}
+        band={{ upperKey: "forecastUpper", lowerKey: "forecastLower", color: CHART.highlight }}
       />
     );
     expect(container.querySelector("svg")).toBeTruthy();

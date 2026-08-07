@@ -45,9 +45,9 @@ export default async function HrPage() {
         {summary && (
           <>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-              <StatCard label="Monthly Payroll" value={`$${summary.totalMonthlyPayroll.toLocaleString()}`} icon="revenue" accent="green" />
-              <StatCard label="Labor Cost %" value={`${summary.laborCostPct}%`} icon="reports" accent="blue" />
-              <StatCard label="Turnover Rate" value={`${summary.turnoverRatePct}%`} icon="staff" accent="amber" />
+              <StatCard label="Monthly Payroll" value={`$${summary.totalMonthlyPayroll.toLocaleString()}`} icon="revenue" accent="success" />
+              <StatCard label="Labor Cost %" value={`${summary.laborCostPct}%`} icon="reports" accent="brand" />
+              <StatCard label="Turnover Rate" value={`${summary.turnoverRatePct}%`} icon="staff" accent="warning" />
             </div>
 
             <Card>

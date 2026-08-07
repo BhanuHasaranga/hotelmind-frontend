@@ -2,6 +2,7 @@
 
 import { TrendLineChart } from "@/components/charts/TrendLineChart";
 import { EmptyState } from "@/components/ui/EmptyState";
+import { CHART } from "@/lib/chart-colors";
 
 interface SentimentTrendChartProps {
   series: Record<string, unknown>[];
@@ -31,7 +32,7 @@ export function SentimentTrendChart({ series }: SentimentTrendChartProps) {
     <TrendLineChart
       data={series}
       xKey={xKey}
-      series={[{ key: scoreKey, label: "Sentiment score", color: "#1d4ed8" }]}
+      series={[{ key: scoreKey, label: "Sentiment score", color: CHART.primary }]}
     />
   );
 }

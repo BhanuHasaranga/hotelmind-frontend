@@ -66,7 +66,7 @@ export default async function DashboardPage() {
                 value={summary ? `${summary.occupancy_pct.toFixed(1)}%` : "—"}
                 sub={summary ? `${summary.occupied_rooms} / ${summary.total_rooms} rooms` : "Connect API to view"}
                 icon="hotel"
-                accent="blue"
+                accent="brand"
               />
               <LiveOccupancyBadge initialOccupancyPct={summary?.occupancy_pct ?? null} token={active?.session.token} />
             </div>
@@ -75,21 +75,21 @@ export default async function DashboardPage() {
               value={summary ? `$${Number(summary.revenue_today).toLocaleString()}` : "—"}
               sub={summary ? `MTD: $${Number(summary.revenue_mtd).toLocaleString()}` : "Connect API to view"}
               icon="revenue"
-              accent="green"
+              accent="premium"
             />
             <StatCard
               label="Reservations Today"
               value={summary?.reservations_today ?? "—"}
               sub={summary ? `${summary.reservations_pending} pending` : "Connect API to view"}
               icon="reservations"
-              accent="purple"
+              accent="brand"
             />
             <StatCard
               label="Restaurant Sales"
               value={summary ? `$${Number(summary.restaurant_sales_today).toLocaleString()}` : "—"}
               sub={summary ? `${summary.restaurant_orders_open} orders open` : "Connect API to view"}
               icon="restaurantSales"
-              accent="amber"
+              accent="success"
             />
           </div>
         </section>

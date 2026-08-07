@@ -2,6 +2,7 @@
 
 import { BarComparisonChart } from "@/components/charts/BarComparisonChart";
 import type { RestaurantDemandResponse } from "@/lib/types/ml";
+import { CHART } from "@/lib/chart-colors";
 
 interface DemandForecastChartProps {
   forecast: RestaurantDemandResponse;
@@ -18,7 +19,7 @@ export function DemandForecastChart({ forecast }: DemandForecastChartProps) {
     <BarComparisonChart
       data={data}
       xKey="meal"
-      series={[{ key: "quantity", label: "Expected orders", color: "#1d4ed8" }]}
+      series={[{ key: "quantity", label: "Expected orders", color: CHART.primary }]}
     />
   );
 }

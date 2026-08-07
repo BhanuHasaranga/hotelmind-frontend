@@ -46,10 +46,10 @@ export default async function ReportsPage() {
 
       <div className="mt-6 space-y-6">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-          <StatCard label="Occupancy" value={summary ? `${summary.occupancy_pct.toFixed(1)}%` : "—"} icon="hotel" accent="blue" />
-          <StatCard label="Revenue MTD" value={summary ? `$${Number(summary.revenue_mtd).toLocaleString()}` : "—"} icon="revenue" accent="green" />
-          <StatCard label="Total Reservations" value={reservations.length} icon="bookings" accent="purple" />
-          <StatCard label="Collection Rate" value={typeof collectionRate === "string" ? collectionRate : `${collectionRate}%`} sub="Paid vs. booked amount" icon="reports" accent="amber" />
+          <StatCard label="Occupancy" value={summary ? `${summary.occupancy_pct.toFixed(1)}%` : "—"} icon="hotel" accent="brand" />
+          <StatCard label="Revenue MTD" value={summary ? `$${Number(summary.revenue_mtd).toLocaleString()}` : "—"} icon="revenue" accent="success" />
+          <StatCard label="Total Reservations" value={reservations.length} icon="bookings" accent="premium" />
+          <StatCard label="Collection Rate" value={typeof collectionRate === "string" ? collectionRate : `${collectionRate}%`} sub="Paid vs. booked amount" icon="reports" accent="warning" />
         </div>
 
         <Card>

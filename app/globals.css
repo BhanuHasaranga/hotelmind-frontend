@@ -46,23 +46,35 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
-  /* Brand palette (legacy, still referenced by a few components) */
-  --color-brand-950: #0c1a2e;
-  --color-brand-900: #1e3a5f;
-  --color-brand-800: #24467a;
-  --color-brand-700: #1d4ed8;
-  --color-brand-500: #3b82f6;
-  --color-brand-300: #93c5fd;
-  --color-brand-100: #dbeafe;
-  --color-brand-50: #eff6ff;
+  /* ── HotelMind brand palette ───────────────────────────────────────────
+     British Racing Green + Champagne. These are the fixed brand constants —
+     they do NOT change between themes. Theme-dependent roles are expressed
+     through the semantic tokens above (--primary, --accent, --sidebar…),
+     which is what components should consume. Reach for a --color-brand-*
+     value directly only when you genuinely need the literal brand color
+     regardless of theme (e.g. the logo, a chart series). */
+  --color-brand-primary: #0b3d2e;
+  --color-brand-secondary: #145a43;
+  --color-brand-light: #e8f1ed;
+  --color-brand-accent: #c9a96e;
+  --color-brand-deep: #071f18;
 
-  /* Semantic status colors */
-  --color-success: #16a34a;
+  /* Semantic status colors — intentionally independent of the brand palette.
+     The brand controls identity; these communicate meaning. Note --color-success
+     is deliberately a brighter, cooler green than --color-brand-primary so a
+     "CONFIRMED" badge never reads as a brand element. */
+  --color-success: #15803d;
   --color-warning: #d97706;
   --color-danger: #dc2626;
-  --color-info: #0284c7;
+  --color-info: #0f766e;
   --color-mock: var(--mock);
   --color-mock-foreground: var(--mock-foreground);
+
+  /* Typography scale — pages should use these rather than raw values. */
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-text-brand: var(--text-brand);
 }
 
 :root {
@@ -70,122 +82,145 @@
 
   /* Legacy variable names — kept during migration, remove once all
      components/ui/* consumers move onto the semantic tokens below. */
-  --background: #f8fafc;
-  --foreground: #0f172a;
-  --sidebar-bg: #1e3a5f;
-  --sidebar-text: #e2e8f0;
-  --sidebar-active: #1d4ed8;
+  --background: #f7f9f7;
+  --foreground: #18231e;
+  --sidebar-bg: #ffffff;
+  --sidebar-text: #18231e;
+  --sidebar-active: #e8f1ed;
   --card-bg: #ffffff;
-  --border: #e2e8f0;
-  --overlay-bg: rgb(15 23 42 / 0.5);
-  --focus-ring: #3b82f6;
-  --color-success-bg: #f0fdf4;
+  --border: #dde5e0;
+  --overlay-bg: rgb(7 31 24 / 0.5);
+  --focus-ring: #0b3d2e;
+  --color-success-bg: #eff9f2;
   --color-success-fg: #15803d;
   --color-warning-bg: #fffbeb;
   --color-warning-fg: #b45309;
   --color-danger-bg: #fef2f2;
   --color-danger-fg: #b91c1c;
-  --color-info-bg: #f0f9ff;
-  --color-info-fg: #0369a1;
+  --color-info-bg: #effaf8;
+  --color-info-fg: #0f766e;
 
-  /* shadcn semantic tokens — light theme */
+  /* Text hierarchy */
+  --text-primary: #18231e;
+  --text-secondary: #66736c;
+  --text-muted: #8a958f;
+  --text-brand: #0b3d2e;
+
+  /* shadcn semantic tokens — light theme.
+     Light-first by design: the page is white/near-white, green appears as
+     interaction and identity (never as a large background surface). */
   --card: #ffffff;
-  --card-foreground: #0f172a;
+  --card-foreground: #18231e;
   --popover: #ffffff;
-  --popover-foreground: #0f172a;
-  --primary: #1d4ed8;
-  --primary-foreground: #f8fafc;
-  --secondary: #f1f5f9;
-  --secondary-foreground: #1e293b;
-  --muted: #f1f5f9;
-  --muted-foreground: #64748b;
-  --accent: #eff6ff;
-  --accent-foreground: #1d4ed8;
+  --popover-foreground: #18231e;
+  --primary: #0b3d2e;
+  --primary-foreground: #ffffff;
+  --secondary: #e8f1ed;
+  --secondary-foreground: #0b3d2e;
+  --muted: #f1f5f2;
+  --muted-foreground: #66736c;
+  --accent: #e8f1ed;
+  --accent-foreground: #0b3d2e;
   --destructive: #dc2626;
-  --destructive-foreground: #f8fafc;
-  --input: #e2e8f0;
-  --ring: #3b82f6;
+  --destructive-foreground: #ffffff;
+  --input: #dde5e0;
+  --ring: #0b3d2e;
 
-  --chart-1: #1d4ed8;
-  --chart-2: #0284c7;
-  --chart-3: #16a34a;
-  --chart-4: #d97706;
-  --chart-5: #7c3aed;
+  --chart-1: #0b3d2e;
+  --chart-2: #145a43;
+  --chart-3: #c9a96e;
+  --chart-4: #0f766e;
+  --chart-5: #a2673f;
 
-  --sidebar: #1e3a5f;
-  --sidebar-foreground: #e2e8f0;
-  --sidebar-primary: #1d4ed8;
-  --sidebar-primary-foreground: #f8fafc;
-  --sidebar-accent: rgb(255 255 255 / 0.1);
-  --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: rgb(255 255 255 / 0.1);
-  --sidebar-ring: #60a5fa;
+  /* Sidebar is a LIGHT surface. Note --sidebar-primary is the active item's
+     soft green *background* (with --sidebar-primary-foreground as its dark
+     green text) — the inverse of the old dark-navy scheme, where it was a
+     solid fill behind white text. Sidebar.tsx depends on this reading. */
+  --sidebar: #ffffff;
+  --sidebar-foreground: #18231e;
+  --sidebar-primary: #e8f1ed;
+  --sidebar-primary-foreground: #0b3d2e;
+  --sidebar-accent: #e8f1ed;
+  --sidebar-accent-foreground: #0b3d2e;
+  --sidebar-border: #e4ebe7;
+  --sidebar-ring: #0b3d2e;
 
   /* "Simulated / preview" data-source marker — distinct violet hue,
-     intentionally never reused for real semantic status meaning. */
+     intentionally never reused for real semantic status meaning, and
+     deliberately NOT folded into the champagne accent: preview data and
+     premium/AI features must stay visually distinguishable. */
   --mock: #f5f3ff;
   --mock-foreground: #6d28d9;
 
-  --shadow-xs: 0 1px 2px 0 rgb(15 23 42 / 0.04);
-  --shadow-sm: 0 1px 3px 0 rgb(15 23 42 / 0.08), 0 1px 2px -1px rgb(15 23 42 / 0.06);
-  --shadow-md: 0 4px 8px -2px rgb(15 23 42 / 0.08), 0 2px 4px -2px rgb(15 23 42 / 0.06);
-  --shadow-lg: 0 12px 24px -6px rgb(15 23 42 / 0.12), 0 4px 8px -4px rgb(15 23 42 / 0.08);
+  --shadow-xs: 0 1px 2px 0 rgb(7 31 24 / 0.04);
+  --shadow-sm: 0 1px 3px 0 rgb(7 31 24 / 0.07), 0 1px 2px -1px rgb(7 31 24 / 0.05);
+  --shadow-md: 0 4px 8px -2px rgb(7 31 24 / 0.07), 0 2px 4px -2px rgb(7 31 24 / 0.05);
+  --shadow-lg: 0 12px 24px -6px rgb(7 31 24 / 0.1), 0 4px 8px -4px rgb(7 31 24 / 0.07);
 
   --ease-standard: cubic-bezier(0.2, 0, 0, 1);
   --duration-fast: 150ms;
   --duration-base: 200ms;
 }
 
+/* Deliberate premium dark theme — same HotelMind identity adapted to a deep
+   green foundation, not a mechanical inversion of the light theme. */
 .dark {
-  --background: #0b1220;
-  --foreground: #e2e8f0;
-  --sidebar-bg: #0c1a2e;
-  --card-bg: #151f30;
-  --border: #263449;
-  --overlay-bg: rgb(0 0 0 / 0.6);
-  --focus-ring: #60a5fa;
-  --color-success-bg: #052e16;
-  --color-success-fg: #4ade80;
-  --color-warning-bg: #451a03;
+  --background: #071f18;
+  --foreground: #f2f6f3;
+  --sidebar-bg: #0b2a20;
+  --sidebar-text: #f2f6f3;
+  --sidebar-active: #14483a;
+  --card-bg: #0b2a20;
+  --border: #1d4536;
+  --overlay-bg: rgb(3 15 11 / 0.7);
+  --focus-ring: #c9a96e;
+  --color-success-bg: #0d3320;
+  --color-success-fg: #6ee7a5;
+  --color-warning-bg: #3a2a0c;
   --color-warning-fg: #fbbf24;
-  --color-danger-bg: #450a0a;
-  --color-danger-fg: #f87171;
-  --color-info-bg: #082f49;
-  --color-info-fg: #38bdf8;
+  --color-danger-bg: #3d1517;
+  --color-danger-fg: #fca5a5;
+  --color-info-bg: #0c3330;
+  --color-info-fg: #5eead4;
 
-  --card: #151f30;
-  --card-foreground: #e2e8f0;
-  --popover: #151f30;
-  --popover-foreground: #e2e8f0;
-  --primary: #3b82f6;
-  --primary-foreground: #0b1220;
-  --secondary: #1e293b;
-  --secondary-foreground: #e2e8f0;
-  --muted: #1c2740;
-  --muted-foreground: #94a3b8;
-  --accent: #1e3a5f;
-  --accent-foreground: #93c5fd;
-  --destructive: #f87171;
-  --destructive-foreground: #0b1220;
-  --input: #263449;
-  --ring: #60a5fa;
+  --text-primary: #f2f6f3;
+  --text-secondary: #aab8b1;
+  --text-muted: #8b9a93;
+  --text-brand: #c9a96e;
 
-  --chart-1: #60a5fa;
-  --chart-2: #38bdf8;
-  --chart-3: #4ade80;
-  --chart-4: #fbbf24;
-  --chart-5: #a78bfa;
+  --card: #0b2a20;
+  --card-foreground: #f2f6f3;
+  --popover: #0b2a20;
+  --popover-foreground: #f2f6f3;
+  --primary: #145a43;
+  --primary-foreground: #f2f6f3;
+  --secondary: #12352a;
+  --secondary-foreground: #f2f6f3;
+  --muted: #12352a;
+  --muted-foreground: #aab8b1;
+  --accent: #14483a;
+  --accent-foreground: #e8f1ed;
+  --destructive: #e05a5a;
+  --destructive-foreground: #071f18;
+  --input: #1d4536;
+  --ring: #c9a96e;
 
-  --sidebar: #0c1a2e;
-  --sidebar-foreground: #e2e8f0;
-  --sidebar-primary: #3b82f6;
-  --sidebar-primary-foreground: #0b1220;
-  --sidebar-accent: rgb(255 255 255 / 0.08);
-  --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: rgb(255 255 255 / 0.08);
-  --sidebar-ring: #60a5fa;
+  --chart-1: #4ea88a;
+  --chart-2: #c9a96e;
+  --chart-3: #5eead4;
+  --chart-4: #d99a6c;
+  --chart-5: #9fb8ad;
 
-  --mock: #1e1b3a;
+  --sidebar: #0b2a20;
+  --sidebar-foreground: #f2f6f3;
+  --sidebar-primary: #14483a;
+  --sidebar-primary-foreground: #f2f6f3;
+  --sidebar-accent: #12352a;
+  --sidebar-accent-foreground: #e8f1ed;
+  --sidebar-border: #1d4536;
+  --sidebar-ring: #c9a96e;
+
+  --mock: #211d3d;
   --mock-foreground: #c4b5fd;
 
   --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.3);
@@ -194,25 +229,8 @@
   --shadow-lg: 0 12px 24px -6px rgb(0 0 0 / 0.5), 0 4px 8px -4px rgb(0 0 0 / 0.4);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not(.light):not(.dark) {
-    --background: #0b1220;
-    --foreground: #e2e8f0;
-    --sidebar-bg: #0c1a2e;
-    --card-bg: #151f30;
-    --border: #263449;
-    --overlay-bg: rgb(0 0 0 / 0.6);
-    --focus-ring: #60a5fa;
-    --color-success-bg: #052e16;
-    --color-success-fg: #4ade80;
-    --color-warning-bg: #451a03;
-    --color-warning-fg: #fbbf24;
-    --color-danger-bg: #450a0a;
-    --color-danger-fg: #f87171;
-    --color-info-bg: #082f49;
-    --color-info-fg: #38bdf8;
-  }
-}
+/* No prefers-color-scheme fallback: HotelMind is light-first by design and
+   opens light regardless of OS setting. Dark is opt-in via the theme toggle. */
 
 * {
   border-color: var(--border);

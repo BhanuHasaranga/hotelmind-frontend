@@ -1,24 +1,35 @@
 import { Icon, type IconName } from "./Icon";
 import { cn } from "@/lib/utils";
 
+/**
+ * Accent controls only the small icon chip — the card itself always stays a
+ * white/`bg-card` surface. Giving each KPI card its own bright background is a
+ * deliberate non-goal: the executive dashboard should read as one calm grid.
+ *
+ * Accents are named for the role they play, not the color they render, so the
+ * palette can change without every call site becoming a lie.
+ */
+type StatAccent = "brand" | "success" | "warning" | "premium";
+
 interface StatCardProps {
   label: string;
   value: string | number;
   sub?: string;
   icon?: IconName;
-  accent?: "blue" | "green" | "amber" | "purple";
+  accent?: StatAccent;
   trend?: { direction: "up" | "down" | "flat"; label: string };
   className?: string;
 }
 
-const ACCENT_MAP = {
-  blue: "bg-accent text-primary",
-  green: "bg-[var(--color-success-bg)] text-[var(--color-success-fg)]",
-  amber: "bg-[var(--color-warning-bg)] text-[var(--color-warning-fg)]",
-  purple: "bg-mock text-mock-foreground",
+const ACCENT_MAP: Record<StatAccent, string> = {
+  brand: "bg-accent text-primary",
+  success: "bg-[var(--color-success-bg)] text-[var(--color-success-fg)]",
+  warning: "bg-[var(--color-warning-bg)] text-[var(--color-warning-fg)]",
+  // Champagne wash — reserved for executive/premium metrics, used sparingly.
+  premium: "bg-[color-mix(in_srgb,var(--color-brand-accent)_16%,transparent)] text-[var(--color-brand-accent)]",
 };
 
-export function StatCard({ label, value, sub, icon, accent = "blue", trend, className }: StatCardProps) {
+export function StatCard({ label, value, sub, icon, accent = "brand", trend, className }: StatCardProps) {
   return (
     <div className={cn("rounded-xl border border-border bg-card p-5 shadow-xs", className)}>
       <div className="flex items-start justify-between">

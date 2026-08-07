@@ -1,6 +1,7 @@
 import { render } from "@testing-library/react";
 import { describe, expect, it, beforeEach, afterEach, vi } from "vitest";
 import { BarComparisonChart } from "./BarComparisonChart";
+import { CHART } from "@/lib/chart-colors";
 
 const data = [
   { meal: "Breakfast", recommended: 40, actual: 35 },
@@ -37,8 +38,8 @@ describe("BarComparisonChart", () => {
         data={data}
         xKey="meal"
         series={[
-          { key: "recommended", label: "Recommended", color: "#1d4ed8" },
-          { key: "actual", label: "Actual", color: "#16a34a" },
+          { key: "recommended", label: "Recommended", color: CHART.primary },
+          { key: "actual", label: "Actual", color: CHART.secondary },
         ]}
       />
     );

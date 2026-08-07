@@ -9,9 +9,14 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary: "bg-primary text-primary-foreground shadow-xs hover:bg-primary/90",
-        secondary: "border border-border bg-card text-foreground shadow-xs hover:bg-secondary",
+        secondary: "bg-secondary text-secondary-foreground shadow-xs hover:bg-[color-mix(in_srgb,var(--secondary)_88%,var(--primary))]",
         danger: "bg-destructive text-destructive-foreground shadow-xs hover:bg-destructive/90",
-        ghost: "text-foreground hover:bg-secondary",
+        ghost: "text-primary hover:bg-accent",
+        // Reserved for genuine AI / premium actions (run a forecast, apply an
+        // AI recommendation, executive insight) — never for ordinary CRUD.
+        // Brand green fill with a champagne edge so it reads as premium
+        // without turning the UI gold-heavy.
+        ai: "bg-primary text-primary-foreground shadow-xs ring-1 ring-inset ring-[var(--color-brand-accent)]/60 hover:bg-[var(--color-brand-secondary)] [&_svg]:text-[var(--color-brand-accent)]",
         outline: "border border-border bg-transparent hover:bg-secondary",
         link: "text-primary underline-offset-4 hover:underline",
       },

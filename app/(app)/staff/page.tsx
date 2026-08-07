@@ -47,9 +47,9 @@ export default async function StaffPage() {
       <div className="mt-6 space-y-6">
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
           {[
-            { label: "Total Employees", value: employees.length,                                   color: "text-blue-600" },
-            { label: "Active",          value: employees.filter((e) => e.is_active).length,        color: "text-green-600" },
-            { label: "Inactive",        value: employees.filter((e) => !e.is_active).length,       color: "text-gray-600" },
+            { label: "Total Employees", value: employees.length,                                   color: "text-primary" },
+            { label: "Active",          value: employees.filter((e) => e.is_active).length,        color: "text-[var(--color-success-fg)]" },
+            { label: "Inactive",        value: employees.filter((e) => !e.is_active).length,       color: "text-muted-foreground" },
           ].map(({ label, value, color }) => (
             <div key={label} className="rounded-xl border border-border bg-card p-4 shadow-sm">
               <p className="text-xs text-muted-foreground">{label}</p>

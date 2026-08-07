@@ -32,7 +32,10 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col">
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+        {/* Light-first by design: HotelMind always opens light regardless of
+            the OS setting (no enableSystem). Dark and OS-following remain
+            available, opt-in, via the theme toggle in the user menu. */}
+        <ThemeProvider attribute="class" defaultTheme="light" disableTransitionOnChange>
           <ToastProvider>{children}</ToastProvider>
           <Toaster />
         </ThemeProvider>
