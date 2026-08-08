@@ -6,7 +6,7 @@ import { Icon } from "@/components/ui/Icon";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { useToast } from "@/components/ui/ToastProvider";
 import { ChurnInterventionCard } from "./ChurnInterventionCard";
-import { predictChurn } from "@/lib/api/ml";
+import { predictChurn } from "@/lib/adapters/ml";
 import type { ChurnPredictResponse } from "@/lib/types/ml";
 
 interface ComplaintsFeedProps {

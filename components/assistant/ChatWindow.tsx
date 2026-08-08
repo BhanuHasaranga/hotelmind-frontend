@@ -7,16 +7,22 @@ import { Alert } from "@/components/ui/Alert";
 import { Button } from "@/components/ui/Button";
 import { ChatMessage, type ChatMessageData } from "./ChatMessage";
 import { SuggestedPrompts } from "./SuggestedPrompts";
-import { queryAssistant } from "@/lib/api/ml";
+import { queryAssistant } from "@/lib/adapters/ml";
 
 interface ChatWindowProps {
   token: string;
   role?: string;
+  /**
+   * Whether the assistant is serving scripted demo answers instead of the real
+   * RAG pipeline. Resolved on the server (see the assistant page) rather than
+   * read from env here, so the client never disagrees with the server render.
+   */
+  mocked?: boolean;
 }
 
 type ChatMode = "generation" | "retrieval-only" | "unknown";
 
-export function ChatWindow({ token, role }: ChatWindowProps) {
+export function ChatWindow({ token, role, mocked = false }: ChatWindowProps) {
   const [messages, setMessages] = useState<ChatMessageData[]>([]);
   const [input, setInput] = useState("");
   const [pending, setPending] = useState(false);
@@ -62,7 +68,19 @@ export function ChatWindow({ token, role }: ChatWindowProps) {
 
   return (
     <div className="flex h-[calc(100vh-10rem)] flex-col gap-3">
-      {mode === "retrieval-only" && (
+      {mocked && (
+        <Alert
+          variant="mock"
+          icon={<FileSearch className="h-4 w-4" />}
+          title="Scripted demo responses"
+        >
+          This portfolio deployment runs without the ML/RAG backend, so the assistant replies from a
+          scripted set of answers. Run the project locally to query the real retrieval pipeline over live
+          hotel data.
+        </Alert>
+      )}
+
+      {!mocked && mode === "retrieval-only" && (
         <Alert
           variant="mock"
           icon={<FileSearch className="h-4 w-4" />}

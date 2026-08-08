@@ -6,7 +6,7 @@ import { EmptyState } from "@/components/ui/EmptyState";
 import { useToast } from "@/components/ui/ToastProvider";
 import { StaffRequirementCard } from "@/components/staffing/StaffRequirementCard";
 import { ScheduleCalendar, type DepartmentStaffingRow } from "@/components/staffing/ScheduleCalendar";
-import { actOnRecommendation, recommendStaffRequirements } from "@/lib/api/ml";
+import { actOnRecommendation, recommendStaffRequirements } from "@/lib/adapters/ml";
 import type { Department, Employee } from "@/lib/types/staff";
 import type { StaffRequirementResponse } from "@/lib/types/ml";
 

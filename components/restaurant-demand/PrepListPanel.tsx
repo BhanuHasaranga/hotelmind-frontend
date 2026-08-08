@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Icon } from "@/components/ui/Icon";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { useToast } from "@/components/ui/ToastProvider";
-import { actOnRecommendation } from "@/lib/api/ml";
+import { actOnRecommendation } from "@/lib/adapters/ml";
 import type { FoodCategory, MenuItem } from "@/lib/types/restaurant";
 import type { RestaurantDemandResponse } from "@/lib/types/ml";
 

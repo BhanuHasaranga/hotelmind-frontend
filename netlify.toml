@@ -2,5 +2,12 @@
   command = "npm run build"
   publish = ".next"
 
+[build.environment]
+  # The production box is CPU-only with a 512MB ml-backend container, so real
+  # inference 502s there (see ML_SERVER_ISSUES.md). Live serves deterministic
+  # mock predictions from lib/adapters/ml instead; local/dev still calls the
+  # real models. Set to "real" here to re-enable live inference.
+  NEXT_PUBLIC_ML_MODE = "mock"
+
 [[plugins]]
   package = "@netlify/plugin-nextjs"

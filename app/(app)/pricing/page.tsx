@@ -2,7 +2,8 @@ import { TopBar } from "@/components/layout/TopBar";
 import { PricingClient } from "./PricingClient";
 import { apiFetchAuthed } from "@/lib/api";
 import { getActiveBranch } from "@/lib/auth/branch";
-import { listPricingGuardrails, listRecommendations } from "@/lib/api/ml";
+import { listPricingGuardrails, listRecommendations } from "@/lib/adapters/ml";
+import { isMocked } from "@/lib/adapters/config";
 import type { RoomType } from "@/lib/types/hotel";
 import type { DailyOccupancy, DashboardSummary } from "@/lib/types/dashboard";
 
@@ -39,7 +40,11 @@ export default async function PricingPage() {
   if (!active?.branchId) {
     return (
       <>
-        <TopBar title="Pricing Intelligence" subtitle="AI-recommended room pricing" dataSource="real" />
+        <TopBar
+          title="Pricing Intelligence"
+          subtitle="AI-recommended room pricing"
+          dataSource={isMocked("pricing") ? "mock" : "real"}
+        />
         <p className="mt-6 text-sm text-muted-foreground">
           Select a branch from the switcher above to view pricing recommendations.
         </p>

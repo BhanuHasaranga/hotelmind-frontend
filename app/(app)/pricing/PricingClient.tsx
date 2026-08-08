@@ -19,7 +19,7 @@ import {
   listRecommendations,
   recommendPricing,
   upsertPricingGuardrail,
-} from "@/lib/api/ml";
+} from "@/lib/adapters/ml";
 import type { RoomType } from "@/lib/types/hotel";
 import type { DailyOccupancy } from "@/lib/types/dashboard";
 import type {

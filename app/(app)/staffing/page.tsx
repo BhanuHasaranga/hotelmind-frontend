@@ -2,6 +2,7 @@ import { TopBar } from "@/components/layout/TopBar";
 import { StaffingClient } from "./StaffingClient";
 import { apiFetchAuthed } from "@/lib/api";
 import { getActiveBranch } from "@/lib/auth/branch";
+import { isMocked } from "@/lib/adapters/config";
 import type { Department, Employee } from "@/lib/types/staff";
 
 async function getDepartments(branchId: string, token: string): Promise<Department[]> {
@@ -42,7 +43,11 @@ export default async function StaffingPage() {
 
   return (
     <>
-      <TopBar title="Staffing" subtitle="AI-recommended headcount by department" dataSource="beta" />
+      <TopBar
+        title="Staffing"
+        subtitle="AI-recommended headcount by department"
+        dataSource={isMocked("staffingForecast") ? "mock" : "beta"}
+      />
       <div className="mt-6">
         <StaffingClient
           token={session.token}

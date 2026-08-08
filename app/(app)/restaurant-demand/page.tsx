@@ -3,6 +3,7 @@ import { TopBar } from "@/components/layout/TopBar";
 import { RestaurantDemandClient } from "./RestaurantDemandClient";
 import { apiFetchAuthed } from "@/lib/api";
 import { getActiveBranch } from "@/lib/auth/branch";
+import { isMocked } from "@/lib/adapters/config";
 import type { FoodCategory, MenuItem } from "@/lib/types/restaurant";
 import type { DashboardSummary } from "@/lib/types/dashboard";
 
@@ -36,7 +37,11 @@ export default async function RestaurantDemandPage() {
   if (!active?.branchId) {
     return (
       <>
-        <TopBar title="Demand Forecast" subtitle="AI-predicted restaurant demand" dataSource="beta" />
+        <TopBar
+          title="Demand Forecast"
+          subtitle="AI-predicted restaurant demand"
+          dataSource={isMocked("restaurantDemand") ? "mock" : "beta"}
+        />
         <p className="mt-6 text-sm text-muted-foreground">
           Select a branch from the switcher above to view demand forecasts.
         </p>
@@ -64,7 +69,11 @@ export default async function RestaurantDemandPage() {
 
   return (
     <>
-      <TopBar title="Demand Forecast" subtitle="AI-predicted restaurant demand and prep planning" dataSource="beta" />
+      <TopBar
+        title="Demand Forecast"
+        subtitle="AI-predicted restaurant demand and prep planning"
+        dataSource={isMocked("restaurantDemand") ? "mock" : "beta"}
+      />
       <div className="mt-6 space-y-4">
         <p className="text-xs text-muted-foreground">
           Looking for live orders and tables?{" "}

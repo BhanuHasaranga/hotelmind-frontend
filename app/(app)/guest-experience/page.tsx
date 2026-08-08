@@ -5,7 +5,8 @@ import { SentimentTrendChart } from "@/components/guest-experience/SentimentTren
 import { TopicsBreakdown } from "@/components/guest-experience/TopicsBreakdown";
 import { ComplaintsFeed } from "@/components/guest-experience/ComplaintsFeed";
 import { getSession } from "@/lib/auth/session";
-import { getReviewsComplaints, getReviewsSummary, getReviewsTopics, getReviewsTrends } from "@/lib/api/ml";
+import { getReviewsComplaints, getReviewsSummary, getReviewsTopics, getReviewsTrends } from "@/lib/adapters/ml";
+import { isMocked } from "@/lib/adapters/config";
 
 export default async function GuestExperiencePage() {
   const session = await getSession();
@@ -28,7 +29,11 @@ export default async function GuestExperiencePage() {
 
   return (
     <>
-      <TopBar title="Guest Experience" subtitle="Sentiment, complaints and churn risk" dataSource="beta" />
+      <TopBar
+        title="Guest Experience"
+        subtitle="Sentiment, complaints and churn risk"
+        dataSource={isMocked("guestSentiment") ? "mock" : "beta"}
+      />
 
       <div className="mt-6 space-y-6">
         <LiveAlertBanner token={session.token} />

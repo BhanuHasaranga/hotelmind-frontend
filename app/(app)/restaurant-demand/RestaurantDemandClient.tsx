@@ -7,7 +7,7 @@ import { Skeleton } from "@/components/ui/Skeleton";
 import { useToast } from "@/components/ui/ToastProvider";
 import { DemandForecastChart } from "@/components/restaurant-demand/DemandForecastChart";
 import { PrepListPanel } from "@/components/restaurant-demand/PrepListPanel";
-import { forecastRestaurantDemand } from "@/lib/api/ml";
+import { forecastRestaurantDemand } from "@/lib/adapters/ml";
 import type { FoodCategory, MenuItem } from "@/lib/types/restaurant";
 import type { RestaurantDemandResponse } from "@/lib/types/ml";
 

@@ -5,7 +5,7 @@ import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/componen
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { Icon } from "@/components/ui/Icon";
-import { actOnRecommendation } from "@/lib/api/ml";
+import { actOnRecommendation } from "@/lib/adapters/ml";
 import type { ChurnPredictResponse } from "@/lib/types/ml";
 
 const RISK_VARIANT: Record<string, "success" | "warning" | "danger" | "neutral"> = {
